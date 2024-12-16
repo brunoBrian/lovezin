@@ -1,0 +1,1 @@
+export { SpecialMomentsCard } from './special-moments-card';
