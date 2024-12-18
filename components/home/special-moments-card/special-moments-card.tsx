@@ -15,18 +15,17 @@ interface SpecialMomentsCardProps {
 export function SpecialMomentsCard({
   moments,
   onAdd,
-  onDelete
+  onDelete,
 }: SpecialMomentsCardProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-2xl font-serif">Momentos Especiais</CardTitle>
+        <CardTitle className="text-2xl font-serif">
+          Momentos Especiais
+        </CardTitle>
       </CardHeader>
       <CardContent className="space-y-6">
-        <SpecialMomentForm 
-          onAdd={onAdd}
-          disabled={moments.length >= 5}
-        />
+        <SpecialMomentForm onAdd={onAdd} disabled={moments.length >= 5} />
         {moments.length > 0 && (
           <>
             <Separator />
@@ -34,10 +33,7 @@ export function SpecialMomentsCard({
               <h3 className="text-lg font-medium text-gray-900 mb-4">
                 Momentos Adicionados
               </h3>
-              <SpecialMomentsList 
-                moments={moments}
-                onDelete={onDelete}
-              />
+              <SpecialMomentsList moments={moments} onDelete={onDelete} />
             </div>
           </>
         )}

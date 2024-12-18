@@ -44,10 +44,6 @@ export default function Home() {
 
           <PreviewSection data={formData} />
         </div>
-
-        <div className="lg:sticky lg:top-8 mt-8 flex items-center justify-center h-[400px]">
-          <h2>Bruno</h2>
-        </div>
       </div>
     </main>
   );

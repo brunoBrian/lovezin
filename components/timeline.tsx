@@ -12,13 +12,15 @@ interface TimelineProps {
 export function Timeline({ moments }: TimelineProps) {
   if (moments.length === 0) return null;
 
-  const sortedMoments = [...moments].sort((a, b) => 
-    new Date(a.date).getTime() - new Date(b.date).getTime()
+  const sortedMoments = [...moments].sort(
+    (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
   );
 
   return (
     <div className="space-y-4">
-      <h3 className="text-lg font-semibold text-gray-800">Momentos Especiais</h3>
+      <h3 className="text-lg font-semibold text-gray-800">
+        Momentos Especiais
+      </h3>
       <div className="space-y-8">
         {sortedMoments.map((moment, index) => (
           <div key={moment.id} className="relative">
@@ -31,7 +33,9 @@ export function Timeline({ moments }: TimelineProps) {
               </div>
               <div className="flex-grow space-y-2">
                 <div className="flex items-baseline justify-between">
-                  <h4 className="text-lg font-medium text-gray-900">{moment.title}</h4>
+                  <h4 className="text-lg font-medium text-gray-900">
+                    {moment.title}
+                  </h4>
                   <time className="text-sm text-gray-500">
                     {formatDate(moment.date)}
                   </time>
