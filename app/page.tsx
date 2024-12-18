@@ -1,50 +1,49 @@
 "use client";
 
-import { useState } from "react";
-import { WeddingData, SpecialMoment } from "@/lib/types";
-import { FormSection } from "@/components/home/form-section";
-import { PreviewSection } from "@/components/home/preview-section";
+import { BeatingHeart } from "@/components/animation/beating-heart";
+import { FloatingHearts } from "@/components/animation/floating-hearts";
+import { FAQ } from "@/components/landing/faq";
+import { Features } from "@/components/landing/features";
+import { Hero } from "@/components/landing/hero";
+import { HowItWorks } from "@/components/landing/how-it-works";
+import { IdealFor } from "@/components/landing/ideal-for";
 import { Button } from "@/components/ui/button";
+
 import Link from "next/link";
-import { Eye } from "lucide-react";
 
-export default function Home() {
-  const [formData, setFormData] = useState<WeddingData>({
-    coupleName: "",
-    message: "",
-    photos: [],
-    relationshipStartDate: "",
-    relationshipStartTime: "",
-    specialMoments: [],
-    youtubeUrl: "",
-  });
-
-  const handleAddMoment = (moment: SpecialMoment) => {
-    setFormData((prev) => ({
-      ...prev,
-      specialMoments: [...prev.specialMoments, moment].slice(0, 5),
-    }));
-  };
-
-  const handleDeleteMoment = (id: string) => {
-    setFormData((prev) => ({
-      ...prev,
-      specialMoments: prev.specialMoments.filter((moment) => moment.id !== id),
-    }));
-  };
-
+export default function LandingPage() {
   return (
-    <main className="min-h-screen bg-gradient-to-br from-rose-50 to-pink-50 p-4 md:p-8">
-      <div className="max-w-7xl mx-auto">
-        <div className="grid md:grid-cols-2 gap-8">
-          <FormSection
-            formData={formData}
-            onFormChange={setFormData}
-            onAddMoment={handleAddMoment}
-            onDeleteMoment={handleDeleteMoment}
-          />
-          <PreviewSection data={formData} />
-        </div>
+    <main className="min-h-screen bg-gradient-to-br from-background to-secondary">
+      <div className="relative">
+        <FloatingHearts />
+
+        <Hero />
+
+        <HowItWorks />
+
+        <Features />
+
+        <IdealFor />
+
+        <section className="py-20 px-4 relative overflow-hidden">
+          <div className="max-w-4xl mx-auto text-center space-y-8">
+            <h2 className="text-4xl font-serif text-primary">Comece Agora!</h2>
+            <p className="text-lg text-muted-foreground">
+              Clique no botão abaixo, preencha os momentos mais importantes e
+              crie um site inesquecível para seu amor.
+            </p>
+            <div className="flex justify-center">
+              <Link href="/criar-historia">
+                <Button size="lg" className="bg-primary hover:bg-primary/90">
+                  <BeatingHeart />
+                  <span className="ml-2">Criar Minha História</span>
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        <FAQ />
       </div>
     </main>
   );

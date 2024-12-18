@@ -2,7 +2,7 @@
 
 import { MobilePreview } from "@/components/mobile-preview";
 import { WeddingData } from "@/lib/types";
-import { FloatingHearts } from "../animation/floating-hearts";
+import { Button } from "../ui/button";
 
 interface PreviewSectionProps {
   data: WeddingData;
@@ -10,8 +10,9 @@ interface PreviewSectionProps {
 
 export function PreviewSection({ data }: PreviewSectionProps) {
   return (
-    <div className="lg:sticky lg:top-8 lg:h-[calc(100vh-4rem)]">
+    <div className="lg:sticky lg:top-8 flex flex-col items-center gap-4 lg:h-[calc(100vh-4rem)]">
       <MobilePreview data={data} />
+      <Button className="w-[320px]">Criar nossa história</Button>
     </div>
   );
 }
