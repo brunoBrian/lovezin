@@ -8,7 +8,8 @@ import { useState } from "react";
 
 export function ShareSection() {
   const [copied, setCopied] = useState(false);
-  const url = typeof window !== "undefined" ? window.location.href : "";
+  const href = typeof window !== "undefined" ? window.location.href : "";
+  const url = `${href}?shared=true`;
 
   const copyToClipboard = async () => {
     try {
