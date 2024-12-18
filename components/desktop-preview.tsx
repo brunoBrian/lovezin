@@ -7,9 +7,6 @@ import { Timeline } from "@/components/timeline";
 import { YouTubeEmbed } from "@/components/youtube-embed";
 import { formatDate } from "@/lib/utils/date";
 import { SliderSection } from "./mobile-preview/slider-section";
-import { HeartbeatLine } from "./animation/heartbeat-line";
-import { FloatingHearts } from "./animation/floating-hearts";
-import { WaveBackground } from "./animation/wave-background";
 
 interface DesktopPreviewProps {
   data: WeddingData;
@@ -22,7 +19,7 @@ export function DesktopPreview({
 }: DesktopPreviewProps) {
   return (
     <div className="bg-white rounded-xl shadow-xl overflow-hidden">
-      <div className="relative md:hidden">
+      <div className={`relative ${!isPreview ? "md:hidden" : ""}`}>
         <PhotoSection mainPhoto={data.photos[0]} />
       </div>
 
@@ -36,11 +33,9 @@ export function DesktopPreview({
         )}
       </div>
 
-      <div className="relative">
+      <div className={`relative ${isPreview ? "aspect-video" : ""}`}>
         <SliderSection photos={data.photos} isPreview={isPreview} />
       </div>
-
-      <FloatingHearts />
 
       <div className="p-8 space-y-8 max-w-4xl mx-auto">
         <div className={`grid gap-8 ${!isPreview ? "md:grid-cols-2" : ""}`}>
@@ -75,6 +70,7 @@ export function DesktopPreview({
               <YouTubeEmbed
                 url={data.youtubeUrl}
                 className="rounded-lg overflow-hidden"
+                isPreview={isPreview}
               />
             )}
           </div>
