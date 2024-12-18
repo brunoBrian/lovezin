@@ -18,7 +18,7 @@ export function DesktopPreview({
   isPreview = false,
 }: DesktopPreviewProps) {
   return (
-    <div className="bg-white rounded-xl shadow-xl overflow-hidden">
+    <div className="bg-white md:rounded-xl shadow-xl overflow-hidden">
       <div className={`relative ${!isPreview ? "md:hidden" : ""}`}>
         <PhotoSection mainPhoto={data.photos[0]} />
       </div>

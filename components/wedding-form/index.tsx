@@ -20,18 +20,18 @@ export function WeddingForm({ formData, setFormData }: WeddingFormProps) {
     if (!files) return;
 
     const newPhotos = Array.from(files).slice(0, 5 - formData.photos.length);
-    const photoURLs = newPhotos.map(file => URL.createObjectURL(file));
-    
+    const photoURLs = newPhotos.map((file) => URL.createObjectURL(file));
+
     setFormData({
       ...formData,
-      photos: [...formData.photos, ...photoURLs].slice(0, 5)
+      photos: [...formData.photos, ...photoURLs].slice(0, 5),
     });
   };
 
   const removePhoto = (index: number) => {
     setFormData({
       ...formData,
-      photos: formData.photos.filter((_, i) => i !== index)
+      photos: formData.photos.filter((_, i) => i !== index),
     });
   };
 
@@ -39,14 +39,16 @@ export function WeddingForm({ formData, setFormData }: WeddingFormProps) {
     const url = e.target.value;
     setFormData({
       ...formData,
-      youtubeUrl: url
+      youtubeUrl: url,
     });
   };
 
   return (
     <Card className="w-full">
       <CardHeader>
-        <CardTitle className="text-2xl font-serif">Nossa História de Amor</CardTitle>
+        <CardTitle className="text-2xl font-serif">
+          Nossa História de Amor
+        </CardTitle>
       </CardHeader>
       <CardContent className="space-y-6">
         <div className="space-y-2">
@@ -55,7 +57,9 @@ export function WeddingForm({ formData, setFormData }: WeddingFormProps) {
             id="coupleName"
             placeholder="João & Maria"
             value={formData.coupleName}
-            onChange={(e) => setFormData({ ...formData, coupleName: e.target.value })}
+            onChange={(e) =>
+              setFormData({ ...formData, coupleName: e.target.value })
+            }
           />
         </div>
 
@@ -66,7 +70,12 @@ export function WeddingForm({ formData, setFormData }: WeddingFormProps) {
               id="relationshipStartDate"
               type="date"
               value={formData.relationshipStartDate}
-              onChange={(e) => setFormData({ ...formData, relationshipStartDate: e.target.value })}
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  relationshipStartDate: e.target.value,
+                })
+              }
             />
           </div>
 
@@ -76,7 +85,12 @@ export function WeddingForm({ formData, setFormData }: WeddingFormProps) {
               id="relationshipStartTime"
               type="time"
               value={formData.relationshipStartTime}
-              onChange={(e) => setFormData({ ...formData, relationshipStartTime: e.target.value })}
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  relationshipStartTime: e.target.value,
+                })
+              }
             />
           </div>
         </div>
@@ -88,7 +102,9 @@ export function WeddingForm({ formData, setFormData }: WeddingFormProps) {
             placeholder="Conte sua história de amor..."
             className="min-h-[120px]"
             value={formData.message}
-            onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+            onChange={(e) =>
+              setFormData({ ...formData, message: e.target.value })
+            }
           />
         </div>
 
@@ -99,10 +115,16 @@ export function WeddingForm({ formData, setFormData }: WeddingFormProps) {
             placeholder="https://www.youtube.com/watch?v=..."
             value={formData.youtubeUrl}
             onChange={handleYoutubeUrlChange}
-            className={!formData.youtubeUrl || isValidYoutubeUrl(formData.youtubeUrl) ? "" : "border-red-500"}
+            className={
+              !formData.youtubeUrl || isValidYoutubeUrl(formData.youtubeUrl)
+                ? ""
+                : "border-red-500"
+            }
           />
           {formData.youtubeUrl && !isValidYoutubeUrl(formData.youtubeUrl) && (
-            <p className="text-sm text-red-500">Por favor, insira uma URL válida do YouTube</p>
+            <p className="text-sm text-red-500">
+              Por favor, insira uma URL válida do YouTube
+            </p>
           )}
         </div>
 
