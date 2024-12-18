@@ -45,7 +45,7 @@ export function PhotoSlider({ photos, interval = 3000 }: PhotoSliderProps) {
         fill
         className="object-cover transition-opacity duration-500"
       />
-      
+
       {photos.length > 1 && (
         <>
           <button
@@ -54,7 +54,7 @@ export function PhotoSlider({ photos, interval = 3000 }: PhotoSliderProps) {
           >
             <ChevronLeft className="w-4 h-4" />
           </button>
-          
+
           <button
             onClick={goToNext}
             className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/30 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
@@ -78,12 +78,6 @@ export function PhotoSlider({ photos, interval = 3000 }: PhotoSliderProps) {
           </div>
         </>
       )}
-
-      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6">
-        <h1 className="text-white text-2xl font-serif">
-          {photos.length > 0 ? "Nossa História" : ""}
-        </h1>
-      </div>
     </div>
   );
 }

@@ -16,34 +16,26 @@ export default function Home() {
     relationshipStartDate: "",
     relationshipStartTime: "",
     specialMoments: [],
-    youtubeUrl: ""
+    youtubeUrl: "",
   });
 
   const handleAddMoment = (moment: SpecialMoment) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      specialMoments: [...prev.specialMoments, moment].slice(0, 5)
+      specialMoments: [...prev.specialMoments, moment].slice(0, 5),
     }));
   };
 
   const handleDeleteMoment = (id: string) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      specialMoments: prev.specialMoments.filter(moment => moment.id !== id)
+      specialMoments: prev.specialMoments.filter((moment) => moment.id !== id),
     }));
   };
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-rose-50 to-pink-50 p-4 md:p-8">
       <div className="max-w-7xl mx-auto">
-        <div className="flex justify-end mb-4">
-          <Link href="/meu-preview">
-            <Button variant="outline" className="gap-2">
-              <Eye className="w-4 h-4" />
-              Ver Exemplo
-            </Button>
-          </Link>
-        </div>
         <div className="grid md:grid-cols-2 gap-8">
           <FormSection
             formData={formData}

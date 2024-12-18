@@ -6,16 +6,24 @@ import { RelationshipTimer } from "@/components/relationship-timer";
 import { Timeline } from "@/components/timeline";
 import { YouTubeEmbed } from "@/components/youtube-embed";
 import { formatDate } from "@/lib/utils/date";
+import { SliderSection } from "./mobile-preview/slider-section";
+import { HeartbeatLine } from "./animation/heartbeat-line";
+import { FloatingHearts } from "./animation/floating-hearts";
+import { WaveBackground } from "./animation/wave-background";
 
 interface DesktopPreviewProps {
   data: WeddingData;
+  isPreview?: boolean;
 }
 
-export function DesktopPreview({ data }: DesktopPreviewProps) {
+export function DesktopPreview({
+  data,
+  isPreview = false,
+}: DesktopPreviewProps) {
   return (
     <div className="bg-white rounded-xl shadow-xl overflow-hidden">
-      <div className="aspect-video relative">
-        <PhotoSection mainPhoto={data.photos[0]} photos={data.photos} />
+      <div className="relative md:hidden">
+        <PhotoSection mainPhoto={data.photos[0]} />
       </div>
 
       <div className="p-8 space-y-8 max-w-4xl mx-auto">
@@ -26,8 +34,16 @@ export function DesktopPreview({ data }: DesktopPreviewProps) {
             </h2>
           </div>
         )}
+      </div>
 
-        <div className="grid md:grid-cols-2 gap-8">
+      <div className="relative">
+        <SliderSection photos={data.photos} isPreview={isPreview} />
+      </div>
+
+      <FloatingHearts />
+
+      <div className="p-8 space-y-8 max-w-4xl mx-auto">
+        <div className={`grid gap-8 ${!isPreview ? "md:grid-cols-2" : ""}`}>
           <div className="space-y-8">
             {data.relationshipStartDate && (
               <div className="text-center space-y-1">
@@ -48,22 +64,22 @@ export function DesktopPreview({ data }: DesktopPreviewProps) {
             )}
 
             {data.message && (
-              <div className="bg-gray-50 p-6 rounded-lg">
+              <div className="bg-gray-50 p-4 rounded-lg">
                 <p className="text-gray-700 italic text-lg leading-relaxed">
                   {data.message}
                 </p>
               </div>
             )}
-          </div>
 
-          <div className="space-y-8">
             {data.youtubeUrl && (
               <YouTubeEmbed
                 url={data.youtubeUrl}
                 className="rounded-lg overflow-hidden"
               />
             )}
+          </div>
 
+          <div className="space-y-8">
             {data.specialMoments.length > 0 && (
               <Timeline moments={data.specialMoments} />
             )}

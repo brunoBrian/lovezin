@@ -2,6 +2,7 @@
 
 import { MobilePreview } from "@/components/mobile-preview";
 import { WeddingData } from "@/lib/types";
+import { FloatingHearts } from "../animation/floating-hearts";
 
 interface PreviewSectionProps {
   data: WeddingData;

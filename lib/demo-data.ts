@@ -8,8 +8,8 @@ export function getDemoData(): WeddingData {
     photos: [
       "https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=800",
       "https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=800",
-      "https://images.unsplash.com/photo-1622495966027-e0432693bfc9?w=800",
-      "https://images.unsplash.com/photo-1591604466140-c83bb0459f38?w=800",
+      "https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=800",
+      "https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=800",
     ],
     relationshipStartDate: "2024-02-14",
     relationshipStartTime: "19:00",

@@ -3,7 +3,6 @@
 import { WeddingForm } from "@/components/wedding-form";
 import { SpecialMomentsCard } from "./special-moments-card";
 import { WeddingData, SpecialMoment } from "@/lib/types";
-import { ShareSection } from "../share";
 
 interface FormSectionProps {
   formData: WeddingData;
@@ -26,7 +25,6 @@ export function FormSection({
         onAdd={onAddMoment}
         onDelete={onDeleteMoment}
       />
-      <ShareSection />
     </div>
   );
 }
