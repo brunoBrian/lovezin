@@ -6,7 +6,7 @@ import { getDemoData } from "@/lib/demo-data";
 import { DesktopPreview } from "./desktop-preview";
 import { ShareSection } from "./share";
 import { AboutSection } from "./details/about-section";
-import { useParams, usePathname, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 export function PreviewContent({ id }: { id: string }) {
   const [data, setData] = useState<WeddingData | null>(null);

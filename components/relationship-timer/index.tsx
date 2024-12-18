@@ -10,8 +10,13 @@ interface RelationshipTimerProps {
   startTime: string;
 }
 
-export function RelationshipTimer({ startDate, startTime }: RelationshipTimerProps) {
-  const [duration, setDuration] = useState(calculateDuration(startDate, startTime));
+export function RelationshipTimer({
+  startDate,
+  startTime,
+}: RelationshipTimerProps) {
+  const [duration, setDuration] = useState(
+    calculateDuration(startDate, startTime)
+  );
 
   useEffect(() => {
     const timer = setInterval(() => {

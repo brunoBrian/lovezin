@@ -1,17 +1,6 @@
 "use client";
 
 import { WeddingData } from "@/lib/types";
-import { Heart } from "lucide-react";
-import { formatDate } from "@/lib/utils/date";
-import { RelationshipTimer } from "./relationship-timer";
-import { Timeline } from "./timeline";
-import { YouTubeEmbed } from "./youtube-embed";
-import { PhotoSlider } from "./photo-slider";
-import Image from "next/image";
-import { FloatingHearts } from "./animation/floating-hearts";
-import { BeatingHeart } from "./animation/beating-heart";
-import { HeartbeatLine } from "./animation/heartbeat-line";
-import { PhotoSection } from "./mobile-preview/photo-section";
 import { DesktopPreview } from "./desktop-preview";
 
 interface MobilePreviewProps {

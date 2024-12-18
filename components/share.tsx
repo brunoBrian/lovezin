@@ -49,7 +49,7 @@ export function ShareSection() {
       <div className="flex gap-2">
         <Input value={url} readOnly className="bg-gray-50" />
         <Button
-          variant={copied ? "success" : "secondary"}
+          variant={copied ? "outline" : "default"}
           onClick={copyToClipboard}
           className="flex-shrink-0"
         >
