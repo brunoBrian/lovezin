@@ -12,7 +12,6 @@ export function PreviewSection({ data }: PreviewSectionProps) {
   return (
     <div className="lg:sticky lg:top-8 flex flex-col items-center gap-4 lg:h-[calc(100vh-4rem)]">
       <MobilePreview data={data} />
-      <Button className="w-[320px]">Criar nossa história</Button>
     </div>
   );
 }

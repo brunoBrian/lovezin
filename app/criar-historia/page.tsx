@@ -1,12 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { WeddingData, SpecialMoment } from "@/lib/types";
+import { SpecialMoment, WeddingData } from "@/lib/types";
+import { FloatingHearts } from "@/components/animation/floating-hearts";
 import { FormSection } from "@/components/home/form-section";
 import { PreviewSection } from "@/components/home/preview-section";
-import { Button } from "@/components/ui/button";
+import { PaymentSection } from "@/components/home/form-section/payment-section";
 
-export default function Home() {
+export default function CreatePage() {
   const [formData, setFormData] = useState<WeddingData>({
     coupleName: "",
     message: "",
@@ -30,17 +31,19 @@ export default function Home() {
       specialMoments: prev.specialMoments.filter((moment) => moment.id !== id),
     }));
   };
-
   return (
-    <main className="min-h-screen bg-gradient-to-br from-rose-50 to-pink-50 p-4 md:p-8">
+    <main className="min-h-screen bg-gradient-to-br from-background to-secondary p-4 md:p-8 relative">
       <div className="max-w-7xl mx-auto">
-        <div className="grid md:grid-cols-2 gap-8">
-          <FormSection
-            formData={formData}
-            onFormChange={setFormData}
-            onAddMoment={handleAddMoment}
-            onDeleteMoment={handleDeleteMoment}
-          />
+        <div className="grid lg:grid-cols-2 gap-8">
+          <div className="space-y-8">
+            <FormSection
+              formData={formData}
+              onFormChange={setFormData}
+              onAddMoment={handleAddMoment}
+              onDeleteMoment={handleDeleteMoment}
+            />
+            <PaymentSection />
+          </div>
 
           <PreviewSection data={formData} />
         </div>
