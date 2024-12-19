@@ -1,16 +1,16 @@
-import './globals.css';
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import "./globals.css";
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'História de Amor',
-  description: 'Crie e compartilhe sua história de amor',
+  title: "Recordar.me",
+  description: "Crie e compartilhe sua história de amor ou amizade",
   openGraph: {
-    title: 'História de Amor',
-    description: 'Crie e compartilhe sua história de amor',
-    type: 'website',
+    title: "História de Amor e Amizade",
+    description: "Crie e compartilhe sua história de amor ou amizade",
+    type: "website",
   },
 };
 

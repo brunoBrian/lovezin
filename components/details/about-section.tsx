@@ -18,7 +18,7 @@ export function AboutSection() {
       <p className="text-gray-600">
         Esta é uma história de amor especial, compartilhada com carinho. Cada
         momento capturado representa uma memória única e preciosa desta jornada
-        de amor.
+        de amor e amizade.
       </p>
 
       <p className="text-gray-600">
