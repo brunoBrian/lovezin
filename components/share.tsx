@@ -40,7 +40,7 @@ export function ShareSection() {
   };
 
   return (
-    <Card className="p-6 space-y-4">
+    <Card className="p-6 space-y-4 bg-white border-none">
       <div className="flex items-center gap-2 text-gray-900">
         <Share2 className="w-5 h-5" />
         <h2 className="text-lg font-medium">Compartilhar História</h2>

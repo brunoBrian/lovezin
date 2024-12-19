@@ -18,7 +18,7 @@ export function SpecialMomentsCard({
   onDelete,
 }: SpecialMomentsCardProps) {
   return (
-    <Card className="bg-white text-black">
+    <Card>
       <CardHeader>
         <CardTitle className="text-2xl font-serif">
           Momentos Especiais

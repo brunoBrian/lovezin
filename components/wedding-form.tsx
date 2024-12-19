@@ -44,7 +44,7 @@ export function WeddingForm({ formData, setFormData }: WeddingFormProps) {
   };
 
   return (
-    <Card className="w-full bg-white text-black">
+    <Card className="w-full">
       <CardHeader>
         <CardTitle className="text-2xl font-serif">
           Nossa História de Amor
