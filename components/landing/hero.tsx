@@ -23,6 +23,12 @@ export function Hero() {
               <span className="ml-2">Começar Agora</span>
             </Button>
           </Link>
+
+          <Link href="/preview">
+            <Button size="lg" variant="secondary">
+              Ver Exemplo
+            </Button>
+          </Link>
         </div>
       </div>
     </section>
