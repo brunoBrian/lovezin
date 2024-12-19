@@ -36,7 +36,7 @@ export function SpecialMomentForm({ onAdd, disabled }: SpecialMomentFormProps) {
       title,
       date,
       description,
-      photo
+      photo,
     });
 
     setTitle("");
@@ -48,7 +48,7 @@ export function SpecialMomentForm({ onAdd, disabled }: SpecialMomentFormProps) {
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="space-y-2">
-        <Label>Photo</Label>
+        <Label>Foto</Label>
         {photo ? (
           <div className="relative group w-full h-40">
             <Image
@@ -79,18 +79,18 @@ export function SpecialMomentForm({ onAdd, disabled }: SpecialMomentFormProps) {
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="title">Title</Label>
+        <Label htmlFor="title">Título</Label>
         <Input
           id="title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          placeholder="First Date"
+          placeholder="Primeiro Encontro"
           required
         />
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="date">Date</Label>
+        <Label htmlFor="date">Data do momento</Label>
         <Input
           id="date"
           type="date"
@@ -101,18 +101,18 @@ export function SpecialMomentForm({ onAdd, disabled }: SpecialMomentFormProps) {
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="description">Description</Label>
+        <Label htmlFor="description">Descrição</Label>
         <Textarea
           id="description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          placeholder="Tell us about this special moment..."
+          placeholder="Conte sobre o momento especial"
           required
         />
       </div>
 
-      <Button 
-        type="submit" 
+      <Button
+        type="submit"
         className="w-full"
         disabled={disabled || !title || !date || !description || !photo}
       >
