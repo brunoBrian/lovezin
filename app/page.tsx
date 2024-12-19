@@ -30,7 +30,8 @@ export default function LandingPage() {
             <h2 className="text-4xl font-serif text-primary">Comece Agora!</h2>
             <p className="text-lg text-muted-foreground">
               Clique no botão abaixo, preencha os momentos mais importantes e
-              crie um site inesquecível para seu amor.
+              crie um site inesquecível para celebrar sua amizade ou
+              relacionamento.
             </p>
             <div className="flex justify-center">
               <Link href="/criar-historia">

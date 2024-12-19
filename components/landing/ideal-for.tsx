@@ -7,18 +7,19 @@ const ideals = [
   {
     icon: Gift,
     title: "Presentes Especiais",
-    description: "Perfeito para aniversários de namoro ou casamento."
+    description: "Presentear em aniversários de amizade, namoro ou casamento.",
   },
   {
     icon: Heart,
     title: "Surpresas Românticas",
-    description: "Ideal para ocasiões especiais e momentos únicos."
+    description:
+      "Surpreender em datas importantes, como formaturas, viagens ou conquistas.",
   },
   {
     icon: Save,
     title: "Memórias Digitais",
-    description: "Guarde suas memórias de forma digital e elegante."
-  }
+    description: "Guarde suas memórias de forma digital e elegante.",
+  },
 ];
 
 export function IdealFor() {
@@ -30,11 +31,16 @@ export function IdealFor() {
         </h2>
         <div className="grid md:grid-cols-3 gap-8">
           {ideals.map((ideal, index) => (
-            <Card key={index} className="p-8 bg-card border-primary/20 text-center">
+            <Card
+              key={index}
+              className="p-8 bg-card border-primary/20 text-center"
+            >
               <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mb-6 mx-auto">
                 <ideal.icon className="h-6 w-6 text-primary" />
               </div>
-              <h3 className="text-xl font-medium text-primary mb-4">{ideal.title}</h3>
+              <h3 className="text-xl font-medium text-primary mb-4">
+                {ideal.title}
+              </h3>
               <p className="text-muted-foreground">{ideal.description}</p>
             </Card>
           ))}

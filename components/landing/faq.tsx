@@ -16,7 +16,7 @@ const faqs = [
   {
     question: "O que posso adicionar na linha do tempo?",
     answer:
-      "Você pode incluir datas, descrições e fotos que marcaram sua história juntos.",
+      "Você pode incluir datas, descrições e fotos que marcaram sua história com amigos ou com alguém especial.",
   },
   {
     question: "O QR code expira?",

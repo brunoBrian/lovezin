@@ -7,23 +7,25 @@ const steps = [
   {
     icon: FileEdit,
     title: "Preencha os Momentos",
-    description: "Adicione datas, fotos e descrições que marcaram sua história."
+    description:
+      "Adicione datas, fotos e descrições que marcaram sua história.",
   },
   {
     icon: Eye,
     title: "Visualize em Tempo Real",
-    description: "Veja o site ganhando vida enquanto preenche o formulário."
+    description: "Veja o site ganhando vida enquanto preenche o formulário.",
   },
   {
     icon: Wallet,
     title: "Pagamento Simples",
-    description: "Faça o pagamento de forma prática via Pix."
+    description: "Faça o pagamento de forma prática via Pix.",
   },
   {
     icon: LinkIcon,
     title: "Receba o Link Personalizado",
-    description: "Após a confirmação, enviamos o site pronto e um QR code para você compartilhar."
-  }
+    description:
+      "Após a confirmação, enviamos o site pronto e um QR code para você compartilhar.",
+  },
 ];
 
 export function HowItWorks() {
@@ -39,7 +41,9 @@ export function HowItWorks() {
               <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
                 <step.icon className="h-6 w-6 text-primary" />
               </div>
-              <h3 className="text-xl font-medium text-primary mb-2">{step.title}</h3>
+              <h3 className="text-xl font-medium text-primary mb-2">
+                {step.title}
+              </h3>
               <p className="text-muted-foreground">{step.description}</p>
             </Card>
           ))}
