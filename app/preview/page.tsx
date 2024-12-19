@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { WeddingData } from "@/lib/types";
 import { getDemoData } from "@/lib/demo-data";
 
-import { useSearchParams } from "next/navigation";
 import { DesktopPreview } from "@/components/desktop-preview";
 
 export default function Preview() {
@@ -12,7 +11,7 @@ export default function Preview() {
 
   return (
     <main className="min-h-screen w-full">
-      <div className="max-w-7xl mx-auto space-y-10">
+      <div className="max-w-7xl mx-auto space-y-10 my-10">
         <DesktopPreview data={demoData} />
       </div>
     </main>
