@@ -20,7 +20,7 @@ export function FormSection({
 }: FormSectionProps) {
   return (
     <div className="space-y-8">
-      <WeddingForm formData={formData} setFormData={onFormChange} />
+      <WeddingForm formData={formData} onFormChange={onFormChange} />
       <SpecialMomentsCard
         moments={formData.specialMoments}
         onAdd={onAddMoment}

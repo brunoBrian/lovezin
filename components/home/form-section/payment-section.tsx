@@ -85,7 +85,6 @@ export function PaymentSection({ plan }: PaymentSectionProps) {
       <PaymentModal
         open={showPaymentModal}
         onOpenChange={setShowPaymentModal}
-        plan={plan}
       />
     </>
   );
