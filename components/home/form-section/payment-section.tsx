@@ -44,7 +44,7 @@ export function PaymentSection({ plan }: PaymentSectionProps) {
                     Preencha todos os campos obrigatórios:
                   </p>
                   <ul className="list-disc list-inside mt-1">
-                    {!formData.coupleName && <li>Nome do casal</li>}
+                    {!formData.coupleName && <li>Nome das pessoas</li>}
                     {!formData.relationshipStartDate && (
                       <li>Data do primeiro encontro</li>
                     )}

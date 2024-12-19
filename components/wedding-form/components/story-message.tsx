@@ -17,7 +17,7 @@ export function StoryMessage({ formData, onUpdate }: StoryMessageProps) {
       </Label>
       <Textarea
         id="message"
-        placeholder="Conte sua história de amor..."
+        placeholder="Conte sua história..."
         className="min-h-[120px] bg-secondary/50 border-primary/20"
         value={formData.message}
         onChange={(e) => onUpdate({ ...formData, message: e.target.value })}

@@ -13,7 +13,7 @@ export function CoupleInfo({ formData, onUpdate }: CoupleInfoProps) {
   return (
     <div className="space-y-2">
       <Label htmlFor="coupleName" className="text-muted-foreground">
-        Nome do Casal
+        Nome das pessoas
       </Label>
       <Input
         id="coupleName"
