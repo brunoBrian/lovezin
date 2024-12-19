@@ -16,7 +16,7 @@ export function FormSection({
   formData,
   onFormChange,
   onAddMoment,
-  onDeleteMoment
+  onDeleteMoment,
 }: FormSectionProps) {
   return (
     <div className="space-y-8">

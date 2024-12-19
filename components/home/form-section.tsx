@@ -1,30 +1,27 @@
 "use client";
 
-import { WeddingForm } from "@/components/wedding-form";
-import { SpecialMomentsCard } from "./special-moments-card";
-import { WeddingData, SpecialMoment } from "@/lib/types";
+import { WeddingData } from "@/lib/types";
+import { PaymentSection } from "./form-section/payment-section";
+import { PlanSelection } from "./form-section/plan-selection";
+import { WeddingForm } from "../wedding-form";
+import { SpecialMomentsForm } from "./form-section/special-moments-form";
 
 interface FormSectionProps {
   formData: WeddingData;
   onFormChange: (data: WeddingData) => void;
-  onAddMoment: (moment: SpecialMoment) => void;
-  onDeleteMoment: (id: string) => void;
 }
 
-export function FormSection({
-  formData,
-  onFormChange,
-  onAddMoment,
-  onDeleteMoment,
-}: FormSectionProps) {
+export function FormSection({ formData, onFormChange }: FormSectionProps) {
   return (
     <div className="space-y-8">
-      <WeddingForm formData={formData} setFormData={onFormChange} />
-      <SpecialMomentsCard
-        moments={formData.specialMoments}
-        onAdd={onAddMoment}
-        onDelete={onDeleteMoment}
-      />
+      <PlanSelection formData={formData} onFormChange={onFormChange} />
+      <WeddingForm formData={formData} onFormChange={onFormChange} />
+
+      {formData.selectedPlan?.specialMomentsEnabled && (
+        <SpecialMomentsForm formData={formData} onFormChange={onFormChange} />
+      )}
+
+      {formData.selectedPlan && <PaymentSection plan={formData.selectedPlan} />}
     </div>
   );
 }

@@ -1,0 +1,1 @@
+export { WeddingForm } from './wedding-form';

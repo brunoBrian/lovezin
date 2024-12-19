@@ -1,3 +1,5 @@
+import { Plan } from "./plans";
+
 export interface SpecialMoment {
   id: string;
   title: string;
@@ -14,4 +16,5 @@ export interface WeddingData {
   relationshipStartTime: string;
   specialMoments: SpecialMoment[];
   youtubeUrl: string;
+  selectedPlan?: Plan;
 }
