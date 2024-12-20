@@ -20,6 +20,7 @@ const initialState: WeddingData = {
   youtubeUrl: "",
   selectedPlan: BASIC_PLAN,
   couplePhotos: [],
+  animation: "",
 };
 
 export const useFormStore = create<FormStore>((set) => ({

@@ -2,36 +2,36 @@
 
 import { Heart } from "lucide-react";
 import { useEffect, useState } from "react";
-import { BeatingHeart } from "./beating-heart";
 
-interface FloatingHeart {
+interface Heart {
   id: number;
   left: number;
   scale: number;
   opacity: number;
   duration: number;
+  flap: boolean;
 }
 
-export function FloatingHearts() {
-  const [hearts, setHearts] = useState<FloatingHeart[]>([]);
+export function HeartPing() {
+  const [hearts, setHearts] = useState<Heart[]>([]);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const newHeart: FloatingHeart = {
+      const newHeart: Heart = {
         id: Date.now(),
         left: Math.random() * 100,
-        scale: 0.5 + Math.random() * 0.5,
-        opacity: 0.3 + Math.random() * 0.7,
-        duration: 3 + Math.random() * 2,
+        scale: 0.4 + Math.random() * 0.3,
+        opacity: 0.4 + Math.random() * 0.6,
+        duration: 4 + Math.random() * 2,
+        flap: true,
       };
 
       setHearts((prev) => [...prev, newHeart]);
 
-      // Remove hearts after animation completes
       setTimeout(() => {
         setHearts((prev) => prev.filter((heart) => heart.id !== newHeart.id));
       }, newHeart.duration * 1000);
-    }, 300);
+    }, 1000);
 
     return () => clearInterval(interval);
   }, []);
@@ -49,8 +49,7 @@ export function FloatingHearts() {
             animation: `float ${heart.duration}s ease-out forwards`,
           }}
         >
-          {/* <Heart className="w-10 h-10 fill-current" /> */}
-          <BeatingHeart />
+          <Heart className="w-8 h-8 fill-red-800 animate-ping" />
         </div>
       ))}
     </div>

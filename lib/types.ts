@@ -19,4 +19,12 @@ export interface WeddingData {
   youtubeUrl: string;
   selectedPlan?: Plan;
   couplePhotos: (File | FileList)[];
+  animation: string;
 }
+
+export type AnimationType =
+  | "hearts"
+  | "stars"
+  | "bubbles"
+  | "doves"
+  | "sparklingHearts";

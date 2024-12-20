@@ -7,6 +7,7 @@ import { DateTimeFields } from "./components/date-time-fields";
 import { StoryMessage } from "./components/story-message";
 import { YoutubeUrl } from "./components/youtube-url";
 import { PhotoGrid } from "./components/photo-grid";
+import { AnimationSelect } from "./components/animation-select";
 
 interface WeddingFormProps {
   formData: WeddingData;
@@ -27,6 +28,7 @@ export function WeddingForm({ formData, onFormChange }: WeddingFormProps) {
         <StoryMessage formData={formData} onUpdate={onFormChange} />
         <YoutubeUrl formData={formData} onUpdate={onFormChange} />
         <PhotoGrid formData={formData} onUpdate={onFormChange} />
+        <AnimationSelect />
       </CardContent>
     </Card>
   );
