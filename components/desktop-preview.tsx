@@ -7,10 +7,32 @@ import { Timeline } from "@/components/timeline";
 import { YouTubeEmbed } from "@/components/youtube-embed";
 import { formatDate } from "@/lib/utils/date";
 import { SliderSection } from "./mobile-preview/slider-section";
+import { FallingStars } from "./animation/falling-stars";
+import { FloatingHearts } from "./animation/floating-hearts";
+import { HeartPing } from "./animation/floating-rings";
+import { RisingBubbles } from "./animation/rising-bubbles";
+import { SparklingHearts } from "./animation/sparkling-hearts";
 
 interface DesktopPreviewProps {
   data: WeddingData;
   isPreview?: boolean;
+}
+
+function getAnimation(type: WeddingData["animation"]) {
+  switch (type) {
+    case "hearts":
+      return <FloatingHearts />;
+    case "stars":
+      return <FallingStars />;
+    case "bubbles":
+      return <RisingBubbles />;
+    case "heartPing":
+      return <HeartPing />;
+    case "sparklingHearts":
+      return <SparklingHearts />;
+    default:
+      return null;
+  }
 }
 
 export function DesktopPreview({
@@ -82,6 +104,8 @@ export function DesktopPreview({
           </div>
         </div>
       </div>
+
+      {getAnimation(data.animation)}
     </div>
   );
 }

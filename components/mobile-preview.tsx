@@ -13,23 +13,6 @@ interface MobilePreviewProps {
   data: WeddingData;
 }
 
-function getAnimation(type: WeddingData["animation"]) {
-  switch (type) {
-    case "hearts":
-      return <FloatingHearts />;
-    case "stars":
-      return <FallingStars />;
-    case "bubbles":
-      return <RisingBubbles />;
-    case "heartPing":
-      return <HeartPing />;
-    case "sparklingHearts":
-      return <SparklingHearts />;
-    default:
-      return null;
-  }
-}
-
 export function MobilePreview({ data }: MobilePreviewProps) {
   return (
     <Card className="border-primary/20 w-full">
@@ -43,8 +26,6 @@ export function MobilePreview({ data }: MobilePreviewProps) {
         <div className="w-[320px] h-[640px] bg-white rounded-[3rem] shadow-xl overflow-hidden border-8 border-gray-800 relative">
           <div className="h-full overflow-y-auto">
             <DesktopPreview data={data} isPreview />
-
-            {getAnimation(data.animation)}
           </div>
         </div>
       </div>

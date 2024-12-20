@@ -10,28 +10,27 @@ interface PhotoSectionProps {
 
 export function SliderSection({ photos, isPreview }: PhotoSectionProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const remainingPhotos = photos.slice(1);
 
   useEffect(() => {
-    if (remainingPhotos.length <= 1) return;
+    if (photos.length <= 1) return;
 
     const timer = setInterval(() => {
-      setCurrentIndex((current) => (current + 1) % remainingPhotos.length);
+      setCurrentIndex((current) => (current + 1) % photos.length);
     }, 3000);
 
     return () => clearInterval(timer);
-  }, [remainingPhotos.length]);
+  }, [photos.length]);
 
   return (
     <>
-      {remainingPhotos.length > 0 && (
+      {photos.length > 0 && (
         <div
           className={`relative h-72 m-8 ${
             !isPreview ? "md:h-[500px] md:m-auto md:max-w-[70%]" : ""
           }`}
         >
           <Image
-            src={remainingPhotos[currentIndex]}
+            src={photos[currentIndex]}
             alt={`Foto ${currentIndex + 1}`}
             fill
             className={`object-cover rounded-lg transition-opacity duration-500 ${
@@ -40,7 +39,7 @@ export function SliderSection({ photos, isPreview }: PhotoSectionProps) {
           />
 
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-            {remainingPhotos.map((_, index) => (
+            {photos.map((_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrentIndex(index)}

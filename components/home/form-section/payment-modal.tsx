@@ -12,7 +12,7 @@ import { QrCode, Loader2 } from "lucide-react";
 import { useState } from "react";
 import { useFormStore } from "@/lib/store/form-store";
 import { selectFormData } from "@/lib/store/selectors/form-selectors";
-import { setStoryImagesRequest } from "@/services/story";
+import { setStoryRequest } from "@/services/story";
 import { PaymentModalContent } from "./payment-modal-content";
 
 interface PaymentModalProps {
@@ -68,7 +68,7 @@ export function PaymentModal({ open, onOpenChange }: PaymentModalProps) {
     }
 
     try {
-      await setStoryImagesRequest(formDatas);
+      await setStoryRequest(formDatas);
       setSuccess(true);
     } catch (error) {
       console.log(error);
