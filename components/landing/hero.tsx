@@ -18,7 +18,7 @@ export function Hero() {
         </p>
         <div className="flex justify-center gap-4">
           <Link href="/criar-historia">
-            <Button size="lg" className="bg-primary hover:bg-primary/90">
+            <Button size="lg" className="hover:bg-primary bg-primary/90">
               <BeatingHeart />
               <span className="ml-2">Começar Agora</span>
             </Button>

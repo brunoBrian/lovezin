@@ -35,7 +35,7 @@ export default function LandingPage() {
             </p>
             <div className="flex justify-center">
               <Link href="/criar-historia">
-                <Button size="lg" className="bg-primary hover:bg-primary/90">
+                <Button size="lg" className="hover:bg-primary bg-primary/90">
                   <BeatingHeart />
                   <span className="ml-2">Criar Minha História</span>
                 </Button>

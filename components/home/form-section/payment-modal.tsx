@@ -12,6 +12,8 @@ import { QrCode, Copy, CheckCircle2 } from "lucide-react";
 import { useState } from "react";
 import Image from "next/image";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
+import { useFormStore } from "@/lib/store/form-store";
+import { selectFormData } from "@/lib/store/selectors/form-selectors";
 
 interface PaymentModalProps {
   open: boolean;
@@ -19,6 +21,7 @@ interface PaymentModalProps {
 }
 
 export function PaymentModal({ open, onOpenChange }: PaymentModalProps) {
+  const formData = useFormStore(selectFormData);
   const [copied, setCopied] = useState(false);
   const pixCode =
     "00020126580014BR.GOV.BCB.PIX0136123e4567-e89b-12d3-a456-426614174000520400005303986540510.005802BR5913Fulano de Tal6008BRASILIA62070503***6304E2CA";
@@ -86,7 +89,9 @@ export function PaymentModal({ open, onOpenChange }: PaymentModalProps) {
               Após o pagamento, você receberá o link do seu site por e-mail em
               até 5 minutos.
             </p>
-            <p className="text-sm font-medium text-primary">Valor: R$ 10,00</p>
+            <p className="text-sm font-medium text-primary">
+              Valor: R$ {formData?.selectedPlan?.price.toFixed(2)}
+            </p>
           </div>
         </div>
       </DialogContent>
