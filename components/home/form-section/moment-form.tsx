@@ -16,6 +16,7 @@ interface MomentFormProps {
 
 export function MomentForm({ onAdd, disabled }: MomentFormProps) {
   const [photo, setPhoto] = useState<string>("");
+  const [fileBuffer, setFileBuffer] = useState<File>(new File([], ""));
   const [title, setTitle] = useState("");
   const [date, setDate] = useState("");
   const [description, setDescription] = useState("");
@@ -24,6 +25,7 @@ export function MomentForm({ onAdd, disabled }: MomentFormProps) {
     const file = e.target.files?.[0];
     if (file) {
       setPhoto(URL.createObjectURL(file));
+      setFileBuffer(file);
     }
   };
 
@@ -37,6 +39,7 @@ export function MomentForm({ onAdd, disabled }: MomentFormProps) {
       date,
       description,
       photo,
+      photoFile: fileBuffer,
     });
 
     setTitle("");

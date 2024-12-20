@@ -23,8 +23,6 @@ export function PhotoGrid({ formData, onUpdate }: PhotoGridProps) {
       5 - formData.couplePhotos.length
     );
 
-    console.log(newPhotos);
-
     onUpdate({
       ...formData,
       photos: [...formData.photos, ...photoURLs].slice(0, 5),

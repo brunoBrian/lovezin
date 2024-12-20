@@ -44,15 +44,32 @@ export function PaymentModal({ open, onOpenChange }: PaymentModalProps) {
   formDatas.append("selectedPlan", JSON.stringify(formData.selectedPlan));
   formDatas.append("youtubeUrl", formData.youtubeUrl);
 
-  console.log(formData.couplePhotos, "bbbj");
+  console.log(JSON.stringify(formData.specialMoments), formData, "bbbj");
 
   formData?.couplePhotos?.forEach((image) => {
     formDatas.append("storyImages", image as File);
   });
 
   if (formData?.specialMoments.length) {
-    formData.specialMoments.forEach((moment) => {
-      formDatas.append("specialMoments", JSON.stringify(moment));
+    formData.specialMoments.forEach((moment, index) => {
+      // Adiciona os dados do momento (sem o arquivo)
+      formDatas.append(
+        `specialMoments[${index}]`,
+        JSON.stringify({
+          id: moment.id,
+          title: moment.title,
+          date: moment.date,
+          description: moment.description,
+          photoFile: moment.photoFile,
+        })
+      );
+
+      if (moment.photoFile) {
+        formDatas.append(
+          `specialMoments[${index}][photoFile]`,
+          moment.photoFile
+        );
+      }
     });
   }
 
