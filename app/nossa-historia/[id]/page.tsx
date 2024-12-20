@@ -9,11 +9,9 @@ export default async function MeuPreviewPage({
 }: {
   params: { id: string };
 }) {
-  const aaa = await getStoryByIdRequest(id);
+  const storyData = await getStoryByIdRequest(id);
 
-  console.log(aaa);
-
-  if (!aaa.id) {
+  if (!storyData.id) {
     return <NotFound />;
   }
 
@@ -22,15 +20,15 @@ export default async function MeuPreviewPage({
       <div className="max-w-7xl mx-auto space-y-10 my-10">
         <DesktopPreview
           data={{
-            animation: "none",
-            coupleName: aaa.coupleName,
-            photos: aaa.storyImages,
-            message: aaa.message,
-            relationshipStartDate: aaa.relationshipStartDate,
-            relationshipStartTime: aaa.relationshipStartTime,
-            selectedPlan: aaa.selectedPlan as unknown as Plan,
-            specialMoments: aaa.specialMoments,
-            youtubeUrl: aaa.youtubeUrl,
+            animation: storyData.animation,
+            coupleName: storyData.coupleName,
+            photos: storyData.storyImages,
+            message: storyData.message,
+            relationshipStartDate: storyData.relationshipStartDate,
+            relationshipStartTime: storyData.relationshipStartTime,
+            selectedPlan: storyData.selectedPlan as unknown as Plan,
+            specialMoments: storyData.specialMoments,
+            youtubeUrl: storyData.youtubeUrl,
             couplePhotos: [],
           }}
         />

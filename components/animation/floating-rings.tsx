@@ -22,7 +22,7 @@ export function HeartPing() {
         left: Math.random() * 100,
         scale: 0.4 + Math.random() * 0.3,
         opacity: 0.4 + Math.random() * 0.6,
-        duration: 4 + Math.random() * 2,
+        duration: 8 + Math.random() * 2,
         flap: true,
       };
 

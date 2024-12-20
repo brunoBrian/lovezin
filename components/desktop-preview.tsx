@@ -55,9 +55,11 @@ export function DesktopPreview({
         )}
       </div>
 
-      <div className={`relative ${isPreview ? "aspect-video" : ""}`}>
-        <SliderSection photos={data.photos} isPreview={isPreview} />
-      </div>
+      {data.photos.length > 0 && (
+        <div className={`relative ${isPreview ? "aspect-video" : ""}`}>
+          <SliderSection photos={data.photos} isPreview={isPreview} />
+        </div>
+      )}
 
       <div className="p-8 space-y-8 max-w-4xl mx-auto">
         <div className={`grid gap-8 ${!isPreview ? "md:grid-cols-2" : ""}`}>
@@ -105,7 +107,9 @@ export function DesktopPreview({
         </div>
       </div>
 
-      {getAnimation(data.animation)}
+      <div className="fixed h-full w-full inset-0 pointer-events-none">
+        {data.animation && getAnimation(data.animation)}
+      </div>
     </div>
   );
 }
