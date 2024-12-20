@@ -16,18 +16,26 @@ export function PhotoGrid({ formData, onUpdate }: PhotoGridProps) {
     if (!files) return;
 
     const newPhotos = Array.from(files).slice(0, 5 - formData.photos.length);
-    const photoURLs = newPhotos.map(file => URL.createObjectURL(file));
-    
+    const photoURLs = newPhotos.map((file) => URL.createObjectURL(file));
+
+    const newCouplePhotos = Array.from(files).slice(
+      0,
+      5 - formData.couplePhotos.length
+    );
+
+    console.log(newPhotos);
+
     onUpdate({
       ...formData,
-      photos: [...formData.photos, ...photoURLs].slice(0, 5)
+      photos: [...formData.photos, ...photoURLs].slice(0, 5),
+      couplePhotos: [...formData.couplePhotos, ...newCouplePhotos],
     });
   };
 
   const removePhoto = (index: number) => {
     onUpdate({
       ...formData,
-      photos: formData.photos.filter((_, i) => i !== index)
+      photos: formData.photos.filter((_, i) => i !== index),
     });
   };
 

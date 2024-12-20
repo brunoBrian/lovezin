@@ -14,10 +14,20 @@ import Image from "next/image";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
 import { useFormStore } from "@/lib/store/form-store";
 import { selectFormData } from "@/lib/store/selectors/form-selectors";
+import { Plan } from "@/lib/plans";
 
 interface PaymentModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+}
+
+async function setStoryImages(formData: FormData) {
+  const response = await fetch("http://localhost:3000/story", {
+    method: "POST",
+    body: formData,
+  });
+
+  return response.json();
 }
 
 export function PaymentModal({ open, onOpenChange }: PaymentModalProps) {
@@ -26,13 +36,49 @@ export function PaymentModal({ open, onOpenChange }: PaymentModalProps) {
   const pixCode =
     "00020126580014BR.GOV.BCB.PIX0136123e4567-e89b-12d3-a456-426614174000520400005303986540510.005802BR5913Fulano de Tal6008BRASILIA62070503***6304E2CA";
 
+  const formDatas = new FormData();
+  formDatas.append("coupleName", formData.coupleName);
+  formDatas.append("message", formData.message);
+  formDatas.append("relationshipStartDate", formData.relationshipStartDate);
+  formDatas.append("relationshipStartTime", formData.relationshipStartTime);
+  formDatas.append("selectedPlan", JSON.stringify(formData.selectedPlan));
+  formDatas.append("youtubeUrl", formData.youtubeUrl);
+
+  console.log(formData.couplePhotos, "bbbj");
+
+  formData?.couplePhotos?.forEach((image) => {
+    formDatas.append("storyImages", image as File);
+  });
+
+  if (formData?.specialMoments.length) {
+    formData.specialMoments.forEach((moment) => {
+      formDatas.append("specialMoments", JSON.stringify(moment));
+    });
+  }
+
+  console.log(formDatas);
+
+  // try {
+  //   const aaa = setStoryImages(formDatas);
+  //   console.log(aaa);
+  // } catch (error) {
+  //   console.log(error);
+  // }
+
   const copyPixCode = async () => {
+    // try {
+    //   await navigator.clipboard.writeText(pixCode);
+    //   setCopied(true);
+    //   setTimeout(() => setCopied(false), 2000);
+    // } catch (err) {
+    //   console.error("Falha ao copiar código Pix:", err);
+    // }
+
     try {
-      await navigator.clipboard.writeText(pixCode);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
-      console.error("Falha ao copiar código Pix:", err);
+      const aaa = await setStoryImages(formDatas);
+      console.log(aaa);
+    } catch (error) {
+      console.log(error);
     }
   };
 
