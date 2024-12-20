@@ -13,6 +13,7 @@ import { Heart, Star, Circle, Bird, Sparkles } from "lucide-react";
 import { useFormStore } from "@/lib/store/form-store";
 
 const animations = [
+  { value: "none", label: "Selecionar", icon: null },
   { value: "hearts", label: "Corações Flutuantes", icon: Heart },
   { value: "stars", label: "Estrelas Cadentes", icon: Star },
   { value: "bubbles", label: "Bolhas Subindo", icon: Circle },
@@ -47,7 +48,7 @@ export function AnimationSelect() {
           {animations.map(({ value, label, icon: Icon }) => (
             <SelectItem key={value} value={value}>
               <div className="flex items-center gap-2">
-                <Icon className="w-4 h-4" />
+                {Icon && <Icon className="w-4 h-4" />}
                 <span>{label}</span>
               </div>
             </SelectItem>

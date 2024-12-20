@@ -22,12 +22,13 @@ export function WeddingForm({ formData, onFormChange }: WeddingFormProps) {
           Nossa História de Amor
         </CardTitle>
       </CardHeader>
+
       <CardContent className="space-y-6 pt-6">
         <CoupleInfo formData={formData} onUpdate={onFormChange} />
         <DateTimeFields formData={formData} onUpdate={onFormChange} />
         <StoryMessage formData={formData} onUpdate={onFormChange} />
-        <YoutubeUrl formData={formData} onUpdate={onFormChange} />
         <PhotoGrid formData={formData} onUpdate={onFormChange} />
+        <YoutubeUrl formData={formData} onUpdate={onFormChange} />
         <AnimationSelect />
       </CardContent>
     </Card>
