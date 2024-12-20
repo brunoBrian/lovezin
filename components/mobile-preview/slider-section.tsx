@@ -36,6 +36,7 @@ export function SliderSection({ photos, isPreview }: PhotoSectionProps) {
             className={`object-cover rounded-lg transition-opacity duration-500 ${
               !isPreview ? "md:object-contain" : ""
             }`}
+            priority
           />
 
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
