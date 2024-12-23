@@ -13,16 +13,20 @@ import { useState } from "react";
 import Image from "next/image";
 import { useFormStore } from "@/lib/store/form-store";
 import { selectFormData } from "@/lib/store/selectors/form-selectors";
+import { getPaymentDataRequest } from "@/services/payment";
+import { PaymentResponse } from "@/services/payment/types";
 
-export function PaymentModalContent() {
+type PaymentModalContentProps = {
+  paymentData: PaymentResponse;
+};
+
+export function PaymentModalContent({ paymentData }: PaymentModalContentProps) {
   const formData = useFormStore(selectFormData);
   const [copied, setCopied] = useState(false);
-  const pixCode =
-    "00020126580014BR.GOV.BCB.PIX0136123e4567-e89b-12d3-a456-426614174000520400005303986540510.005802BR5913Fulano de Tal6008BRASILIA62070503***6304E2CA";
 
   const copyPixCode = async () => {
     try {
-      await navigator.clipboard.writeText(pixCode);
+      await navigator.clipboard.writeText(paymentData.pixKey);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
@@ -45,7 +49,7 @@ export function PaymentModalContent() {
         <div className="flex justify-center">
           <div className="relative w-64 h-64 bg-white p-4 rounded-lg">
             <Image
-              src="https://api.qrserver.com/v1/create-qr-code/?size=512x512&data=00020126580014BR.GOV.BCB.PIX0136123e4567-e89b-12d3-a456-426614174000520400005303986540510.005802BR5913Fulano de Tal6008BRASILIA62070503***6304E2CA"
+              src={paymentData?.qrCode}
               alt="QR Code Pix"
               fill
               className="object-contain p-2"
@@ -60,7 +64,7 @@ export function PaymentModalContent() {
           </div>
           <div className="flex gap-2">
             <code className="flex-1 p-2 bg-secondary/50 rounded-md text-xs break-all">
-              {pixCode}
+              {paymentData?.pixKey}
             </code>
             <Button
               variant="outline"
