@@ -18,7 +18,7 @@ export interface WeddingData {
   specialMoments: SpecialMoment[];
   youtubeUrl: string;
   selectedPlan?: Plan;
-  couplePhotos: (File | FileList)[];
+  couplePhotos?: (File | FileList)[];
   animation: string;
 }
 

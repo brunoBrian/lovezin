@@ -13,6 +13,8 @@ export function getDemoData(): WeddingData {
     ],
     relationshipStartDate: "2024-02-14",
     relationshipStartTime: "19:00",
+    animation: "hearts",
+    couplePhotos: [],
     specialMoments: [
       {
         id: "1",
