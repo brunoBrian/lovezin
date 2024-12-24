@@ -35,12 +35,13 @@ export function PaymentModal({ open, onOpenChange }: PaymentModalProps) {
 
   const isFormValid = email.trim() !== "" && phone.trim() !== "";
 
-  const getPixPaymentData = async () => {
+  const getPixPaymentData = async (uuid: string) => {
     try {
       const pixData = await getPaymentDataRequest({
         amount: Number(formData?.selectedPlan?.price),
         description: `Criação de site personalizado - ${formData?.coupleName}`,
         email: email,
+        uuid: uuid,
       });
 
       setPaymentData(pixData);
@@ -55,10 +56,10 @@ export function PaymentModal({ open, onOpenChange }: PaymentModalProps) {
     const formattedData = createFormData(formData, email, phone);
 
     try {
-      await setStoryRequest(formattedData);
+      const { uuid } = await setStoryRequest(formattedData);
       setSuccess(true);
 
-      await getPixPaymentData();
+      await getPixPaymentData(uuid);
     } catch (error) {
       console.error(error);
     } finally {

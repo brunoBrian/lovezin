@@ -4,6 +4,7 @@ export interface SpecialMomentBody {
   amount: number;
   description: string;
   email: string;
+  uuid: string;
 }
 
 export interface PaymentResponse {
