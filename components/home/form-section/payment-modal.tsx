@@ -12,9 +12,7 @@ import { QrCode, Loader2 } from "lucide-react";
 import { useState } from "react";
 import { useFormStore } from "@/lib/store/form-store";
 import { selectFormData } from "@/lib/store/selectors/form-selectors";
-import { setStoryRequest } from "@/services/story";
 import { PaymentModalContent } from "./payment-modal-content";
-import { getPaymentDataRequest } from "@/services/payment";
 import { PaymentResponse } from "@/services/payment/types";
 import { PaymentModalForm } from "./payment-form";
 import { createFormData } from "@/lib/utils/formData";
@@ -35,34 +33,21 @@ export function PaymentModal({ open, onOpenChange }: PaymentModalProps) {
 
   const isFormValid = email.trim() !== "" && phone.trim() !== "";
 
-  const getPixPaymentData = async (uuid: string) => {
-    try {
-      const pixData = await getPaymentDataRequest({
-        amount: Number(formData?.selectedPlan?.price),
-        description: `Criação de site personalizado - ${formData?.coupleName}`,
-        email: email,
-        uuid: uuid,
-        phone: phone,
-      });
-
-      setSuccess(true);
-
-      setPaymentData(pixData);
-    } catch (error) {
-      console.error(error);
-      setSuccess(false);
-    }
-  };
-
   const handleSetStoryRequest = async () => {
     setLoading(true);
 
     const formattedData = createFormData(formData, email, phone);
 
     try {
-      const { uuid } = await setStoryRequest(formattedData);
+      const pixDataResponse = await fetch("/api/story", {
+        method: "POST",
+        body: formattedData,
+      });
 
-      await getPixPaymentData(uuid);
+      const pixData = await pixDataResponse.json();
+
+      setSuccess(true);
+      setPaymentData(pixData as unknown as PaymentResponse);
     } catch (error) {
       console.error(error);
     } finally {

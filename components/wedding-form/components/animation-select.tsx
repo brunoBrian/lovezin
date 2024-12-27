@@ -17,7 +17,7 @@ const animations = [
   { value: "hearts", label: "Corações Flutuantes", icon: Heart },
   { value: "stars", label: "Estrelas Cadentes", icon: Star },
   { value: "bubbles", label: "Bolhas Subindo", icon: Circle },
-  { value: "heartPing", label: "Coraões Pulsantes", icon: Heart },
+  { value: "heartPing", label: "Corações Pulsantes", icon: Heart },
   { value: "sparklingHearts", label: "Corações Cintilantes", icon: Sparkles },
 ] as const;
 
