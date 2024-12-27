@@ -5,6 +5,7 @@ export interface SpecialMomentBody {
   description: string;
   email: string;
   uuid: string;
+  phone: string;
 }
 
 export interface PaymentResponse {

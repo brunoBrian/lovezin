@@ -42,11 +42,15 @@ export function PaymentModal({ open, onOpenChange }: PaymentModalProps) {
         description: `Criação de site personalizado - ${formData?.coupleName}`,
         email: email,
         uuid: uuid,
+        phone: phone,
       });
+
+      setSuccess(true);
 
       setPaymentData(pixData);
     } catch (error) {
       console.error(error);
+      setSuccess(false);
     }
   };
 
@@ -57,7 +61,6 @@ export function PaymentModal({ open, onOpenChange }: PaymentModalProps) {
 
     try {
       const { uuid } = await setStoryRequest(formattedData);
-      setSuccess(true);
 
       await getPixPaymentData(uuid);
     } catch (error) {
@@ -75,7 +78,7 @@ export function PaymentModal({ open, onOpenChange }: PaymentModalProps) {
             Pagamento via Pix
           </DialogTitle>
 
-          {!success ? (
+          {!success && !paymentData?.qrCode ? (
             <DialogDescription className="text-center space-y-4">
               <p>
                 Preencha os dados e clique no botão abaixo para gerar o QR Code
@@ -91,7 +94,7 @@ export function PaymentModal({ open, onOpenChange }: PaymentModalProps) {
           )}
         </DialogHeader>
 
-        {success && paymentData ? (
+        {success && paymentData?.qrCode ? (
           <PaymentModalContent paymentData={paymentData} />
         ) : (
           <div className="sm:max-w-md overflow-auto max-h-[90vh]">
