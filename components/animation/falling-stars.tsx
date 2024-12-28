@@ -39,12 +39,12 @@ export function FallingStars() {
       {stars.map((star) => (
         <div
           key={star.id}
-          className="absolute bottom-0 text-primary animate-float"
+          className="absolute top-0 text-primary animate-confetti"
           style={{
             left: `${star.left}%`,
             transform: `scale(${star.scale})`,
             opacity: star.opacity,
-            animation: `float ${star.duration}s ease-out forwards`,
+            animation: `confetti ${star.duration}s ease-out forwards`,
           }}
         >
           <Star className="w-6 h-6 fill-current" />

@@ -3,11 +3,6 @@
 import { WeddingData } from "@/lib/types";
 import { DesktopPreview } from "./desktop-preview";
 import { Card, CardHeader, CardTitle } from "./ui/card";
-import { RisingBubbles } from "./animation/rising-bubbles";
-import { FallingStars } from "./animation/falling-stars";
-import { SparklingHearts } from "./animation/sparkling-hearts";
-import { HeartPing } from "./animation/floating-rings";
-import { FloatingHearts } from "./animation/floating-hearts";
 
 interface MobilePreviewProps {
   data: WeddingData;

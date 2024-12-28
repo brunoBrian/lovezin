@@ -45,6 +45,28 @@
   }
 }
 
+@keyframes confetti {
+  0% {
+    transform: translateY(0) rotate(var(--rotation));
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(calc(var(--rotation) + 360deg));
+    opacity: 0;
+  }
+}
+
+@keyframes spark {
+  0% {
+    transform: scale(1) translate(0, 0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0) translate(var(--tx), var(--ty));
+    opacity: 0;
+  }
+}
+
 @keyframes heartbeat {
   0%,
   100% {
@@ -112,4 +134,50 @@
 /* Smooth scrolling for the timeline */
 .timeline-scroll {
   scroll-behavior: smooth;
+}
+
+.animate-confetti {
+  --rotation: 0deg;
+  animation: confetti 3s linear forwards;
+}
+
+.animate-spark-1 {
+  --tx: 30px;
+  --ty: -30px;
+  animation: spark 0.5s ease-out forwards;
+}
+.animate-spark-2 {
+  --tx: 30px;
+  --ty: 30px;
+  animation: spark 0.5s ease-out forwards;
+}
+.animate-spark-3 {
+  --tx: -30px;
+  --ty: -30px;
+  animation: spark 0.5s ease-out forwards;
+}
+.animate-spark-4 {
+  --tx: -30px;
+  --ty: 30px;
+  animation: spark 0.5s ease-out forwards;
+}
+.animate-spark-5 {
+  --tx: 0px;
+  --ty: -40px;
+  animation: spark 0.5s ease-out forwards;
+}
+.animate-spark-6 {
+  --tx: 0px;
+  --ty: 40px;
+  animation: spark 0.5s ease-out forwards;
+}
+.animate-spark-7 {
+  --tx: -40px;
+  --ty: 0px;
+  animation: spark 0.5s ease-out forwards;
+}
+.animate-spark-8 {
+  --tx: 40px;
+  --ty: 0px;
+  animation: spark 0.5s ease-out forwards;
 }

@@ -9,7 +9,14 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { AnimationType } from "@/lib/types";
-import { Heart, Star, Circle, Bird, Sparkles } from "lucide-react";
+import {
+  Heart,
+  Star,
+  Circle,
+  Sparkles,
+  PartyPopper,
+  Flame,
+} from "lucide-react";
 import { useFormStore } from "@/lib/store/form-store";
 
 const animations = [
@@ -19,6 +26,8 @@ const animations = [
   { value: "bubbles", label: "Bolhas Subindo", icon: Circle },
   { value: "heartPing", label: "Corações Pulsantes", icon: Heart },
   { value: "sparklingHearts", label: "Corações Cintilantes", icon: Sparkles },
+  { value: "firework", label: "Fogos de Artificio", icon: Flame },
+  { value: "confetti", label: "Confete", icon: PartyPopper },
 ] as const;
 
 export function AnimationSelect() {

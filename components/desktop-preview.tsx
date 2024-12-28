@@ -12,6 +12,8 @@ import { FloatingHearts } from "./animation/floating-hearts";
 import { HeartPing } from "./animation/floating-rings";
 import { RisingBubbles } from "./animation/rising-bubbles";
 import { SparklingHearts } from "./animation/sparkling-hearts";
+import { Confetti } from "./animation/confetti";
+import { Fireworks } from "./animation/fireworks";
 
 interface DesktopPreviewProps {
   data: WeddingData;
@@ -24,12 +26,20 @@ function getAnimation(type: WeddingData["animation"]) {
       return <FloatingHearts />;
     case "stars":
       return <FallingStars />;
+    case "confetti":
+      return <Confetti />;
+    case "firework":
+      return <Fireworks />;
     case "bubbles":
       return <RisingBubbles />;
     case "heartPing":
       return <HeartPing />;
     case "sparklingHearts":
       return <SparklingHearts />;
+    case "firework":
+      return <Fireworks />;
+    case "confetti":
+      return <Confetti />;
     default:
       return null;
   }
