@@ -106,7 +106,11 @@ export function DesktopPreview({
           </div>
         </div>
 
-        <div className="h-full w-full inset-0 pointer-events-none">
+        <div
+          className={`h-full w-full inset-0 pointer-events-none ${
+            !isPreview ? "fixed" : ""
+          }`}
+        >
           {data.animation && getAnimation(data.animation)}
         </div>
       </div>
