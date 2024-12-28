@@ -40,7 +40,7 @@ export function DesktopPreview({
   isPreview = false,
 }: DesktopPreviewProps) {
   return (
-    <div className="bg-white md:rounded-xl shadow-xl overflow-hidden">
+    <div className="bg-white min-h-full md:rounded-xl shadow-xl overflow-hidden">
       <div className={`relative ${!isPreview ? "md:hidden" : ""}`}>
         <PhotoSection mainPhoto={data.photos[0]} />
       </div>
@@ -105,10 +105,10 @@ export function DesktopPreview({
             )}
           </div>
         </div>
-      </div>
 
-      <div className="fixed h-full w-full inset-0 pointer-events-none">
-        {data.animation && getAnimation(data.animation)}
+        <div className="h-full w-full inset-0 pointer-events-none">
+          {data.animation && getAnimation(data.animation)}
+        </div>
       </div>
     </div>
   );
