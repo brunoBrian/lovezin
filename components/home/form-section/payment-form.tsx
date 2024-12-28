@@ -16,21 +16,22 @@ export function PaymentModalForm({
       <div className="space-y-2">
         <Input
           id="email"
+          required
+          type="email"
           onChange={(e) => setEmail(e.target.value)}
           placeholder="E-mail"
-          type="email"
-          required
           className="bg-secondary/50 border-primary/20"
         />
       </div>
 
       <div className="space-y-2">
         <Input
+          required
           id="phone"
           onChange={(e) => setPhone(e.target.value)}
           placeholder="Telefone/Whatsapp"
-          required
           className="bg-secondary/50 border-primary/20"
+          maxLength={11}
         />
       </div>
     </form>
