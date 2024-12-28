@@ -21,7 +21,7 @@ const faqs = [
   {
     question: "O QR code expira?",
     answer:
-      "Não, o QR code é permanente e pode ser usado sempre que quiser compartilhar seu site.",
+      "Depende do plano que você escolher. O QR code dos planos Básico e Premium expira em 1 ano, enquanto o QR code dos planos Deluxe e Ultimate é válido para sempre.",
   },
   {
     question: "Posso editar o site depois de pronto?",
