@@ -25,9 +25,12 @@ export function PlanSelection({ formData, onFormChange }: PlanSelectionProps) {
             <Heart className="w-5 h-5 text-primary" />
             <h2 className="text-2xl font-serif text-primary">
               {formData.selectedPlan
-                ? `${
-                    formData.selectedPlan.name
-                  } - R$ ${formData.selectedPlan.price.toFixed(2)}`
+                ? `${formData.selectedPlan.name} - 
+                  ${new Intl.NumberFormat("pt-BR", {
+                    style: "currency",
+                    currency: "BRL",
+                  }).format(formData.selectedPlan.price)}
+                  `
                 : "Escolha seu Plano"}
             </h2>
           </div>
@@ -43,16 +46,26 @@ export function PlanSelection({ formData, onFormChange }: PlanSelectionProps) {
                   const updatedPhotos =
                     plan.id === "basic"
                       ? formData.photos.slice(0, 3)
+                      : plan.id !== "ultimate"
+                      ? formData.photos.slice(0, 5)
                       : formData.photos;
 
                   const updatedMoments =
-                    plan.id === "basic" ? [] : formData.specialMoments;
+                    plan.id === "basic" || plan.id === "premium"
+                      ? []
+                      : plan.id === "deluxe"
+                      ? formData.specialMoments.slice(0, 3)
+                      : formData.specialMoments;
+
+                  const updatedYoutubeUrl =
+                    plan.id === "basic" ? "" : formData.youtubeUrl;
 
                   onFormChange({
                     ...formData,
                     selectedPlan: plan,
                     photos: updatedPhotos,
                     specialMoments: updatedMoments,
+                    youtubeUrl: updatedYoutubeUrl,
                   });
                 }}
               />

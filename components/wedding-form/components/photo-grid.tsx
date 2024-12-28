@@ -15,7 +15,10 @@ export function PhotoGrid({ formData, onUpdate }: PhotoGridProps) {
     const files = e.target.files;
     if (!files) return;
 
-    const newPhotos = Array.from(files).slice(0, 5 - formData.photos.length);
+    const newPhotos = Array.from(files).slice(
+      0,
+      (formData?.selectedPlan?.maxPhotos as number) - formData.photos.length
+    );
     const photoURLs = newPhotos.map((file) => URL.createObjectURL(file));
 
     const newCouplePhotos = formData?.couplePhotos
@@ -41,7 +44,10 @@ export function PhotoGrid({ formData, onUpdate }: PhotoGridProps) {
 
   return (
     <div className="space-y-4">
-      <Label className="text-muted-foreground">Fotos (Máximo 5)</Label>
+      <Label className="text-muted-foreground">
+        Fotos (Máximo {formData?.selectedPlan?.maxPhotos})
+      </Label>
+
       <div className="grid grid-cols-5 gap-4">
         {formData.photos.map((photo, index) => (
           <div key={index} className="relative group">
@@ -60,7 +66,8 @@ export function PhotoGrid({ formData, onUpdate }: PhotoGridProps) {
             </button>
           </div>
         ))}
-        {formData.photos.length < 5 && (
+
+        {formData.photos.length < (formData?.selectedPlan?.maxPhotos || 3) && (
           <label className="border-2 border-dashed border-primary/20 rounded-lg h-24 flex items-center justify-center cursor-pointer hover:border-primary/40 transition-colors">
             <input
               type="file"

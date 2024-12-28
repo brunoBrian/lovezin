@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { WeddingData } from "@/lib/types";
 import { isValidYoutubeUrl } from "@/lib/utils/youtube";
+import { useEffect } from "react";
 
 interface YoutubeUrlProps {
   formData: WeddingData;

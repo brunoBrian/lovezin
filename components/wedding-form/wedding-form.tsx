@@ -28,7 +28,9 @@ export function WeddingForm({ formData, onFormChange }: WeddingFormProps) {
         <DateTimeFields formData={formData} onUpdate={onFormChange} />
         <StoryMessage formData={formData} onUpdate={onFormChange} />
         <PhotoGrid formData={formData} onUpdate={onFormChange} />
-        <YoutubeUrl formData={formData} onUpdate={onFormChange} />
+        {formData.selectedPlan?.youtubeVideoEnabled && (
+          <YoutubeUrl formData={formData} onUpdate={onFormChange} />
+        )}
         <AnimationSelect />
       </CardContent>
     </Card>

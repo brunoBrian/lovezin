@@ -32,7 +32,10 @@ export function PaymentSection({ plan }: PaymentSectionProps) {
             <div className="flex justify-between items-center">
               <span className="text-muted-foreground">Total a pagar:</span>
               <span className="text-2xl font-bold text-primary">
-                R$ {plan.price.toFixed(2)}
+                {new Intl.NumberFormat("pt-BR", {
+                  style: "currency",
+                  currency: "BRL",
+                }).format(plan.price)}
               </span>
             </div>
 

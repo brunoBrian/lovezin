@@ -18,7 +18,10 @@ export function SpecialMomentsForm({
   const handleAddMoment = (moment: SpecialMoment) => {
     onFormChange({
       ...formData,
-      specialMoments: [...formData.specialMoments, moment].slice(0, 5),
+      specialMoments: [...formData.specialMoments, moment].slice(
+        0,
+        formData?.selectedPlan?.maxSpecialMomentsPhotos as number
+      ),
     });
   };
 
@@ -35,14 +38,23 @@ export function SpecialMomentsForm({
     <Card className="border-primary/20">
       <CardHeader className="border-b border-primary/10">
         <CardTitle className="text-2xl font-serif text-primary">
-          Momentos Especiais
+          Momentos Especiais (Máximo{" "}
+          {formData?.selectedPlan?.maxSpecialMomentsPhotos})
         </CardTitle>
       </CardHeader>
+
       <CardContent className="space-y-6 pt-6">
-        <MomentForm
-          onAdd={handleAddMoment}
-          disabled={formData.specialMoments.length >= 5}
-        />
+        {(formData?.selectedPlan?.maxSpecialMomentsPhotos as number) >
+        formData.specialMoments.length ? (
+          <MomentForm
+            onAdd={handleAddMoment}
+            disabled={formData.specialMoments.length >= 5}
+          />
+        ) : (
+          <p className="text-center">
+            Você atingiu o limite de Momentos especiais
+          </p>
+        )}
         {formData.specialMoments.length > 0 && (
           <>
             <Separator className="bg-primary/10" />

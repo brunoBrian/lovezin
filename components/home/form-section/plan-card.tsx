@@ -34,7 +34,10 @@ export function PlanCard({ plan, isSelected, onSelect }: PlanCardProps) {
         <h3 className="text-xl font-medium text-primary">{plan.name}</h3>
         <div className="flex items-baseline gap-1">
           <span className="text-3xl font-bold text-primary">
-            R$ {plan.price.toFixed(2)}
+            {new Intl.NumberFormat("pt-BR", {
+              style: "currency",
+              currency: "BRL",
+            }).format(plan.price)}
           </span>
         </div>
       </div>
