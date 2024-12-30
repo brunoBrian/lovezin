@@ -12,7 +12,7 @@ export function Logo() {
         width="356.20000000000005"
         height="43.532149597482864"
         viewBox="0 0 370.18518518518516 45.24131628369842"
-        className="w-[270px]"
+        className="w-[220px] md:w-[270px]"
       >
         <defs id="SvgjsDefs2534"></defs>
         <g
