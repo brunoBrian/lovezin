@@ -2,9 +2,8 @@
 
 import NotFound from "@/app/not-found";
 import { BeatingHeart } from "@/components/animation/beating-heart";
-import { HeartPing } from "@/components/animation/floating-rings";
 import { DesktopPreview } from "@/components/desktop-preview";
-import { getDemoData } from "@/lib/demo-data";
+import { RevealButton } from "@/components/reveal-button";
 import { Plan } from "@/lib/plans";
 import { getStoryByIdRequest } from "@/services/story";
 import { StoryResponse } from "@/services/story/types";
@@ -16,6 +15,7 @@ export default function MeuPreviewPage({
   params: { id: string };
 }) {
   const [storyData, setStoryData] = useState<StoryResponse | null>(null);
+  const [isRevealed, setIsRevealed] = useState(false);
 
   useEffect(() => {
     getStoryByIdRequest(id).then((data) => {
@@ -45,24 +45,28 @@ export default function MeuPreviewPage({
 
   return (
     <main className="min-h-screen w-full">
-      <div className="max-w-7xl mx-auto space-y-10 my-10">
-        {storyData && (
-          <DesktopPreview
-            data={{
-              animation: storyData.animation,
-              coupleName: storyData.coupleName,
-              photos: storyData.storyImages,
-              message: storyData.message,
-              relationshipStartDate: storyData.relationshipStartDate,
-              relationshipStartTime: storyData.relationshipStartTime,
-              selectedPlan: storyData.selectedPlan as unknown as Plan,
-              specialMoments: storyData.specialMoments,
-              youtubeUrl: storyData.youtubeUrl,
-              couplePhotos: [],
-            }}
-          />
-        )}
-      </div>
+      {!isRevealed ? (
+        <RevealButton onReveal={() => setIsRevealed(true)} />
+      ) : (
+        <div className="max-w-7xl mx-auto space-y-10 my-10">
+          {storyData && (
+            <DesktopPreview
+              data={{
+                animation: storyData.animation,
+                coupleName: storyData.coupleName,
+                photos: storyData.storyImages,
+                message: storyData.message,
+                relationshipStartDate: storyData.relationshipStartDate,
+                relationshipStartTime: storyData.relationshipStartTime,
+                selectedPlan: storyData.selectedPlan as unknown as Plan,
+                specialMoments: storyData.specialMoments,
+                youtubeUrl: storyData.youtubeUrl,
+                couplePhotos: [],
+              }}
+            />
+          )}
+        </div>
+      )}
     </main>
   );
 }
