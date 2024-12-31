@@ -50,6 +50,7 @@ export function PaymentModal({ open, onOpenChange }: PaymentModalProps) {
       setPaymentData(pixData as unknown as PaymentResponse);
     } catch (error) {
       console.error(error);
+      alert(JSON.stringify(error));
     } finally {
       setLoading(false);
     }

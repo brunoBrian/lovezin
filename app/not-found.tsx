@@ -7,9 +7,9 @@ import Link from "next/link";
 
 export default function NotFound() {
   return (
-    <main className="min-h-screen bg-gradient-to-br from-background to-secondary relative">
+    <main className="bg-gradient-to-br from-background to-secondary relative">
       <FloatingHearts />
-      <div className="container mx-auto px-4 h-screen flex items-center justify-center">
+      <div className="container mx-auto px-4 min-h-[calc(100vh-97px)] flex items-center justify-center">
         <div className="max-w-md w-full text-center space-y-8">
           <div className="space-y-4">
             <Heart className="w-16 h-16 text-primary mx-auto" />
