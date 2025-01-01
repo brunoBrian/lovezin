@@ -11,7 +11,7 @@ export function PhotoSection({ mainPhoto }: PhotoSectionProps) {
   return (
     <>
       {mainPhoto ? (
-        <div className="relative h-80">
+        <div className="relative h-96 bg-gradient-to-br from-background to-secondary">
           <Image
             src={mainPhoto}
             alt="Foto principal"

@@ -25,7 +25,7 @@ export function SliderSection({ photos, isPreview }: PhotoSectionProps) {
     <>
       {photos.length > 0 && (
         <div
-          className={`relative h-72 m-8 ${
+          className={`relative h-96 m-8 ${
             !isPreview ? "md:h-[500px] md:m-auto md:max-w-[70%]" : ""
           }`}
         >
@@ -33,7 +33,7 @@ export function SliderSection({ photos, isPreview }: PhotoSectionProps) {
             src={photos[currentIndex]}
             alt={`Foto ${currentIndex + 1}`}
             fill
-            className={`object-cover rounded-lg transition-opacity duration-500 ${
+            className={`object-contain rounded-lg transition-opacity duration-500 ${
               !isPreview ? "md:object-contain" : ""
             }`}
             priority
