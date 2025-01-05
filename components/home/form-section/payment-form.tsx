@@ -1,6 +1,7 @@
 "use client";
 
 import { Input } from "@/components/ui/input";
+import { utilsPhoneWithDDD } from "@/lib/mask";
 
 type PaymentModalFormProps = {
   setEmail: (e: string) => void;
@@ -28,10 +29,12 @@ export function PaymentModalForm({
         <Input
           required
           id="phone"
-          onChange={(e) => setPhone(e.target.value)}
           placeholder="Telefone/Whatsapp"
           className="bg-secondary/50 border-primary/20"
-          maxLength={11}
+          onChange={(e) => {
+            e.target.value = utilsPhoneWithDDD.masked(e.target.value);
+            setPhone(e.target.value);
+          }}
         />
       </div>
     </form>
