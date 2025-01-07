@@ -3,11 +3,11 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import { ConfettiPiece } from "./confetti-piece";
-import { Sparkle } from "./sparkle";
 import { Message } from "./message";
 import { useRouter } from "next/navigation";
 import { useFormStore } from "@/lib/store/form-store";
 import { resetForm } from "@/lib/store/selectors/form-selectors";
+import { usePaymentStore } from "@/lib/store/payment-store";
 
 interface CongratulationsProps {
   show: boolean;
@@ -17,6 +17,8 @@ export function Congratulations({ show }: CongratulationsProps) {
   const router = useRouter();
   const resetFormData = useFormStore(resetForm);
 
+  const { setShowSuccess, setIsPaid } = usePaymentStore();
+
   const [confetti, setConfetti] = useState<
     Array<{
       id: number;
@@ -24,14 +26,6 @@ export function Congratulations({ show }: CongratulationsProps) {
       x: number;
       delay: number;
       rotation: number;
-    }>
-  >([]);
-
-  const [sparkles, setSparkles] = useState<
-    Array<{
-      id: number;
-      size: number;
-      style: React.CSSProperties;
     }>
   >([]);
 
@@ -50,27 +44,8 @@ export function Congratulations({ show }: CongratulationsProps) {
     }));
     setConfetti(newConfetti);
 
-    // Create sparkles
-    const sparkleInterval = setInterval(() => {
-      setSparkles((prev) => [
-        ...prev,
-        {
-          id: Date.now(),
-          size: Math.random() * 4 + 2,
-          style: {
-            top: Math.random() * 100 + "%",
-            left: Math.random() * 100 + "%",
-            opacity: Math.random(),
-            transform: `rotate(${Math.random() * 360}deg)`,
-          },
-        },
-      ]);
-    }, 200);
-
     return () => {
-      clearInterval(sparkleInterval);
       setConfetti([]);
-      setSparkles([]);
     };
   }, [show]);
 
@@ -82,14 +57,13 @@ export function Congratulations({ show }: CongratulationsProps) {
         {confetti.map((piece) => (
           <ConfettiPiece key={piece.id} {...piece} />
         ))}
-        {sparkles.map((sparkle) => (
-          <Sparkle key={sparkle.id} {...sparkle} />
-        ))}
       </div>
       <AnimatePresence>
         <Message
           onClose={() => {
             resetFormData();
+            setShowSuccess(false);
+            setIsPaid(false);
             router.push("/");
           }}
         />

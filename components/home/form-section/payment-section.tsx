@@ -9,6 +9,8 @@ import { useFormStore } from "@/lib/store/form-store";
 import { selectFormData } from "@/lib/store/selectors/form-selectors";
 import { Plan } from "@/lib/plans";
 import { PaymentModal } from "./payment-modal";
+import { usePaymentStore } from "@/lib/store/payment-store";
+import { Congratulations } from "@/components/congratulations";
 
 interface PaymentSectionProps {
   plan: Plan;
@@ -18,6 +20,8 @@ export function PaymentSection({ plan }: PaymentSectionProps) {
   const [showPaymentModal, setShowPaymentModal] = useState(false);
   const formData = useFormStore(selectFormData);
   const isComplete = isFormComplete(formData);
+
+  const showSuccess = usePaymentStore((state) => state.showSuccess);
 
   return (
     <>
@@ -84,6 +88,8 @@ export function PaymentSection({ plan }: PaymentSectionProps) {
           </div>
         </CardContent>
       </Card>
+
+      {showSuccess && <Congratulations show />}
 
       <PaymentModal
         open={showPaymentModal}
