@@ -2,23 +2,19 @@
 
 import { usePaymentStore } from "./store/payment-store";
 
-export async function startPaymentListener(pixCode: string) {
+export async function startPaymentListener(payment_id: string) {
   const { setShowSuccess } = usePaymentStore.getState();
 
   // Start polling the payment status endpoint
   const checkPaymentStatus = async () => {
     try {
-      const response = await fetch("/api/payment/status", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ pixCode }),
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_RECORDAR_API_URL}/pagamento/check/${payment_id}`
+      );
 
       const data = await response.json();
 
-      if (data.status === "paid") {
+      if (data.status === "approved") {
         setShowSuccess(true);
         return true;
       }

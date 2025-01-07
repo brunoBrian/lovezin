@@ -56,7 +56,7 @@ export function PaymentModal({ open, onOpenChange }: PaymentModalProps) {
 
       setTimeout(() => {
         // Start listening for payment
-        startPaymentListener(pixData.pixKey);
+        startPaymentListener(pixData.payment_id);
       }, 1500);
     } catch (error) {
       console.error(error);
