@@ -60,7 +60,6 @@ export function PaymentModal({ open, onOpenChange }: PaymentModalProps) {
       }, 1500);
     } catch (error) {
       console.error(error);
-      alert(JSON.stringify(error));
     } finally {
       setLoading(false);
     }
