@@ -22,12 +22,19 @@ export function PhotoGrid({ formData, onUpdate }: PhotoGridProps) {
     const photoURLs = newPhotos.map((file) => URL.createObjectURL(file));
 
     const newCouplePhotos = formData?.couplePhotos
-      ? Array.from(files).slice(0, 5 - formData?.couplePhotos?.length)
+      ? Array.from(files).slice(
+          0,
+          (formData?.selectedPlan?.maxPhotos as number) -
+            formData?.couplePhotos?.length
+        )
       : [];
 
     onUpdate({
       ...formData,
-      photos: [...formData.photos, ...photoURLs].slice(0, 5),
+      photos: [...formData.photos, ...photoURLs].slice(
+        0,
+        formData?.selectedPlan?.maxPhotos as number
+      ),
       couplePhotos: formData?.couplePhotos && [
         ...formData?.couplePhotos,
         ...newCouplePhotos,
