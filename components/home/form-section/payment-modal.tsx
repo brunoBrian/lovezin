@@ -51,13 +51,15 @@ export function PaymentModal({ open, onOpenChange }: PaymentModalProps) {
 
       const pixData = await pixDataResponse.json();
 
-      setSuccess(true);
-      setPaymentData(pixData as unknown as PaymentResponse);
+      if (pixData.payment_id) {
+        setSuccess(true);
+        setPaymentData(pixData as unknown as PaymentResponse);
 
-      setTimeout(() => {
-        // Start listening for payment
-        startPaymentListener(pixData.payment_id);
-      }, 1500);
+        setTimeout(() => {
+          // Start listening for payment
+          startPaymentListener(pixData.payment_id);
+        }, 1500);
+      }
     } catch (error) {
       console.error(error);
       alert(JSON.stringify(error));

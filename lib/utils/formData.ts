@@ -25,7 +25,7 @@ export const createFormData = (
     data.specialMoments.forEach((moment, index) => {
       // Adiciona os dados do momento (sem o arquivo)
       formData.append(
-        `specialMoments[${index}]`,
+        `specialMoments`,
         JSON.stringify({
           id: moment.id,
           title: moment.title,
@@ -35,10 +35,7 @@ export const createFormData = (
       );
 
       if (moment.photoFile) {
-        formData.append(
-          `specialMoments[${index}][photoFile]`,
-          moment.photoFile
-        );
+        formData.append(`specialMomentsPhotos`, moment.photoFile);
       }
     });
   }

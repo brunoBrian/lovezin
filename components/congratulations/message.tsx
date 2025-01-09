@@ -16,10 +16,12 @@ export function Message({ onClose }: MessageProps) {
       onClick={onClose}
     >
       <div className="bg-card p-8 rounded-lg shadow-xl text-center space-y-4 max-w-md mx-4">
-        <h2 className="text-3xl font-serif text-primary">Parabéns!</h2>
+        <h2 className="text-3xl font-serif text-primary">
+          Pagamento aprovado!
+        </h2>
         <p className="text-muted-foreground">
-          Sua história de amor foi criada com sucesso! Em breve você receberá o
-          link por e-mail.
+          Sua história foi criada com sucesso! Em breve você receberá o link e
+          qr-code por e-mail.
         </p>
         <button
           onClick={onClose}
