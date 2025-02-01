@@ -27,7 +27,11 @@ async function uploadImages(images: File[]): Promise<string[]> {
     return Promise.all(uploadPromises);
   } catch (error) {
     console.error("Erro ao fazer upload das imagens:", error);
-    throw error;
+
+    NextResponse.json(
+      { message: JSON.stringify(error) || "Erro interno do servidor." },
+      { status: 500 }
+    );
   }
 }
 
