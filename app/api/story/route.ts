@@ -3,8 +3,8 @@ import { StoryResponse } from "./types";
 
 // Function to handle image uploads and return the URLs
 async function uploadImages(images: File[]): Promise<string[]> {
-  try {
-    const uploadPromises = images.map(async (image) => {
+  const uploadPromises = images.map(async (image) => {
+    try {
       const formData = new FormData();
       formData.append("file", image);
 
@@ -17,21 +17,31 @@ async function uploadImages(images: File[]): Promise<string[]> {
       );
 
       if (!response.ok) {
-        throw new Error("Erro ao fazer upload das imagens.");
+        const errorText = await response.text();
+        throw new Error(
+          `Erro ${response.status}: ${response.statusText} - ${errorText}`
+        );
       }
 
-      const { url } = await response.json();
-      return url;
-    });
+      const data = await response.json();
+      if (!data.url) {
+        throw new Error("A resposta da API não contém uma URL válida.");
+      }
 
-    return Promise.all(uploadPromises);
+      return data.url;
+    } catch (error) {
+      console.error("Erro ao fazer upload da imagem:", error);
+      throw new Error(
+        `Erro ao enviar imagem ${image.name}: ${(error as Error)?.message}`
+      );
+    }
+  });
+
+  try {
+    return await Promise.all(uploadPromises);
   } catch (error) {
     console.error("Erro ao fazer upload das imagens:", error);
-
-    NextResponse.json(
-      { message: JSON.stringify(error) || "Erro interno do servidor." },
-      { status: 500 }
-    );
+    throw new Error("Falha ao enviar uma ou mais imagens.");
   }
 }
 
