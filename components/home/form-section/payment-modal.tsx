@@ -49,20 +49,33 @@ export function PaymentModal({ open, onOpenChange }: PaymentModalProps) {
         body: formattedData,
       });
 
-      const pixData = await pixDataResponse.json();
+      if (!pixDataResponse.ok) {
+        const errorText = await pixDataResponse.text();
+        throw new Error(
+          `Erro ${pixDataResponse.status}: ${pixDataResponse.statusText} - ${errorText}`
+        );
+      }
+
+      let pixData;
+      try {
+        pixData = await pixDataResponse.json();
+      } catch (jsonError) {
+        throw new Error("Erro ao converter resposta da API para JSON.");
+      }
 
       if (pixData.payment_id) {
         setSuccess(true);
         setPaymentData(pixData as unknown as PaymentResponse);
 
         setTimeout(() => {
-          // Start listening for payment
           startPaymentListener(pixData.payment_id);
         }, 1500);
       }
     } catch (error) {
-      console.error(error);
-      alert(JSON.stringify(error));
+      console.error("Erro na requisição:", error);
+
+      // Exibe erro de forma mais legível
+      alert(error instanceof Error ? error.message : String(error));
     } finally {
       setLoading(false);
     }
