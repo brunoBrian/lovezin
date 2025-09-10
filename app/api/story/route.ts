@@ -1,20 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { StoryResponse } from "./types";
-import imageCompression from "browser-image-compression";
-
-async function compressImage(file: File) {
-  const options = {
-    maxSizeMB: 1, // Reduz para 1MB
-    maxWidthOrHeight: 1000, // Define um tamanho máximo
-    useWebWorker: true,
-  };
-  return await imageCompression(file, options);
-}
 
 // Function to handle image uploads and return the URLs
 async function uploadImages(images: File[]): Promise<string[]> {
-  const compressedImages = await Promise.all(images.map(compressImage));
-  const uploadPromises = compressedImages.map(async (image) => {
+  const uploadPromises = images.map(async (image) => {
     try {
       const formData = new FormData();
       formData.append("file", image);

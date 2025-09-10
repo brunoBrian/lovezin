@@ -20,6 +20,7 @@ import { createFormData } from "@/lib/utils/formData";
 import { Plan } from "@/lib/plans";
 import { startPaymentListener } from "@/lib/payment-listener";
 import { usePaymentStore } from "@/lib/store/payment-store";
+import imageCompression from "browser-image-compression";
 
 interface PaymentModalProps {
   open: boolean;
@@ -28,6 +29,7 @@ interface PaymentModalProps {
 
 export function PaymentModal({ open, onOpenChange }: PaymentModalProps) {
   const formData = useFormStore(selectFormData);
+  const setFormData = useFormStore((state) => state.setFormData);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [paymentData, setPaymentData] = useState<PaymentResponse | null>(null);
@@ -38,10 +40,45 @@ export function PaymentModal({ open, onOpenChange }: PaymentModalProps) {
 
   const isFormValid = email.trim() !== "" && phone.trim() !== "";
 
+  const compressImage = async (imageFile: File) => {
+    const options = {
+      maxSizeMB: 1,
+      maxWidthOrHeight: 1920,
+      useWebWorker: true,
+    };
+    try {
+      const compressedFile = await imageCompression(imageFile, options);
+      return compressedFile;
+    } catch (error) {
+      console.error("Error compressing image:", error);
+      return imageFile; // Return original if compression fails
+    }
+  };
+
   const handleSetStoryRequest = async () => {
     setLoading(true);
 
-    const formattedData = createFormData(formData, email, phone);
+    const compressedCouplePhotos = await Promise.all(
+      (formData.couplePhotos || []).map(compressImage)
+    );
+
+    const compressedSpecialMoments = await Promise.all(
+      (formData.specialMoments || []).map(async (moment) => {
+        if (moment.photoFile) {
+          const compressedPhoto = await compressImage(moment.photoFile);
+          return { ...moment, photoFile: compressedPhoto };
+        }
+        return moment;
+      })
+    );
+
+    const updatedFormData = {
+      ...formData,
+      couplePhotos: compressedCouplePhotos,
+      specialMoments: compressedSpecialMoments,
+    };
+
+    const formattedData = createFormData(updatedFormData, email, phone);
 
     try {
       const pixDataResponse = await fetch("/api/story", {
