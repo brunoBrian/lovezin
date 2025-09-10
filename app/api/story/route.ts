@@ -51,7 +51,7 @@ export async function POST(
   try {
     const formData = await request.formData();
 
-    // Convert FormData to a plain object
+    // Converte FormData para objeto simples (sem imagens)
     const body: Record<string, any> = {};
     formData.forEach((value, key) => {
       if (key !== "storyImages" && key !== "specialMomentsPhotos") {
@@ -59,38 +59,45 @@ export async function POST(
       }
     });
 
-    // Handle story images upload
+    // Pega arquivos enviados
     const storyImages = formData.getAll("storyImages") as File[];
-    const uploadedImageUrls = await uploadImages(storyImages);
-
-    // Handle special moments images upload
     const specialMoments = formData
       .getAll("specialMoments")
       .map((moment) => JSON.parse(moment as string));
     const specialMomentsPhotos = formData.getAll(
       "specialMomentsPhotos"
     ) as File[];
-    const uploadedMomentsImagesUrl = await uploadImages(specialMomentsPhotos);
 
-    // Format special moments with uploaded image URLs
-    const specialMomentsFormatted = specialMoments.map((moment, index) => ({
-      ...moment,
-      photo: uploadedMomentsImagesUrl[index] || null,
-    }));
+    // Monta um novo FormData para enviar ao /story
+    const storyFormData = new FormData();
 
-    // First API call: Create the story
+    // Campos simples
+    Object.entries(body).forEach(([key, value]) => {
+      storyFormData.append(key, value as string);
+    });
+
+    // Imagens da história
+    storyImages.forEach((file) => {
+      storyFormData.append("storyImages", file);
+    });
+
+    // Special moments + fotos
+    specialMoments.forEach((moment, index) => {
+      storyFormData.append("specialMoments", JSON.stringify(moment));
+      if (specialMomentsPhotos[index]) {
+        storyFormData.append(
+          "specialMomentsPhotos",
+          specialMomentsPhotos[index]
+        );
+      }
+    });
+
+    // Primeiro fetch: criar história
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_RECORDAR_API_URL}/story`,
       {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...body,
-          storyImages: uploadedImageUrls,
-          specialMoments: specialMomentsFormatted,
-        }),
+        body: storyFormData, // multipart
       }
     );
 
@@ -100,7 +107,7 @@ export async function POST(
 
     const { uuid } = await response.json();
 
-    // Second API call: Process payment
+    // Segundo fetch: processar pagamento (JSON)
     const paymentData = {
       uuid,
       phone: body.phone,
