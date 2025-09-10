@@ -58,8 +58,19 @@ export function PaymentModal({ open, onOpenChange }: PaymentModalProps) {
   const handleSetStoryRequest = async () => {
     setLoading(true);
 
+    const allCouplePhotos: File[] = [];
+    (formData.couplePhotos || []).forEach((item) => {
+      if (item instanceof File) {
+        allCouplePhotos.push(item);
+      } else if (item instanceof FileList) {
+        for (let i = 0; i < item.length; i++) {
+          allCouplePhotos.push(item[i]);
+        }
+      }
+    });
+
     const compressedCouplePhotos = await Promise.all(
-      (formData.couplePhotos || []).map(compressImage)
+      allCouplePhotos.map(compressImage)
     );
 
     const compressedSpecialMoments = await Promise.all(
