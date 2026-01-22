@@ -21,6 +21,7 @@ export function StoryMessage({ formData, onUpdate }: StoryMessageProps) {
         className="min-h-[120px] bg-secondary/50 border-primary/20"
         value={formData.message}
         onChange={(e) => onUpdate({ ...formData, message: e.target.value })}
+        maxLength={1000}
       />
     </div>
   );

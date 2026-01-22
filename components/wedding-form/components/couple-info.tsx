@@ -21,6 +21,7 @@ export function CoupleInfo({ formData, onUpdate }: CoupleInfoProps) {
         value={formData.coupleName}
         onChange={(e) => onUpdate({ ...formData, coupleName: e.target.value })}
         className="bg-secondary/50 border-primary/20"
+        maxLength={50}
       />
     </div>
   );

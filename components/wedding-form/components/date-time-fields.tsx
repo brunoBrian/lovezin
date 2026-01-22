@@ -16,7 +16,6 @@ export function DateTimeFields({ formData, onUpdate }: DateTimeFieldsProps) {
 
   useEffect(() => {
     const today = new Date();
-    today.setDate(today.getDate() - 1);
     const formattedDate = today.toISOString().split("T")[0];
     setMaxDate(formattedDate);
   }, []);

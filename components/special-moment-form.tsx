@@ -93,6 +93,7 @@ export function SpecialMomentForm({ onAdd, disabled }: SpecialMomentFormProps) {
           onChange={(e) => setTitle(e.target.value)}
           placeholder="Primeiro Encontro"
           required
+          maxLength={50}
         />
       </div>
 
@@ -104,6 +105,7 @@ export function SpecialMomentForm({ onAdd, disabled }: SpecialMomentFormProps) {
           value={date}
           onChange={(e) => setDate(e.target.value)}
           required
+          max={new Date().toISOString().split("T")[0]}
         />
       </div>
 
@@ -115,6 +117,7 @@ export function SpecialMomentForm({ onAdd, disabled }: SpecialMomentFormProps) {
           onChange={(e) => setDescription(e.target.value)}
           placeholder="Conte sobre o momento especial"
           required
+          maxLength={1000}
         />
       </div>
 
