@@ -15,30 +15,21 @@ export function PhotoGrid({ formData, onUpdate }: PhotoGridProps) {
     const files = e.target.files;
     if (!files) return;
 
-    const newPhotos = Array.from(files).slice(
-      0,
-      (formData?.selectedPlan?.maxPhotos as number) - formData.photos.length
-    );
-    const photoURLs = newPhotos.map((file) => URL.createObjectURL(file));
+    const maxPhotos = (formData?.selectedPlan?.maxPhotos as number) || 3;
+    const currentPhotosLength = formData.photos.length;
+    const availableSlots = maxPhotos - currentPhotosLength;
 
-    const newCouplePhotos = formData?.couplePhotos
-      ? Array.from(files).slice(
-          0,
-          (formData?.selectedPlan?.maxPhotos as number) -
-            formData?.couplePhotos?.length
-        )
-      : [];
+    if (availableSlots <= 0) return;
+
+    const newFiles = Array.from(files).slice(0, availableSlots);
+    const newPhotoURLs = newFiles.map((file) => URL.createObjectURL(file));
+
+    const currentCouplePhotos = formData.couplePhotos || [];
 
     onUpdate({
       ...formData,
-      photos: [...formData.photos, ...photoURLs].slice(
-        0,
-        formData?.selectedPlan?.maxPhotos as number
-      ),
-      couplePhotos: formData?.couplePhotos && [
-        ...formData?.couplePhotos,
-        ...newCouplePhotos,
-      ],
+      photos: [...formData.photos, ...newPhotoURLs],
+      couplePhotos: [...currentCouplePhotos, ...newFiles],
     });
   };
 
@@ -46,6 +37,7 @@ export function PhotoGrid({ formData, onUpdate }: PhotoGridProps) {
     onUpdate({
       ...formData,
       photos: formData.photos.filter((_, i) => i !== index),
+      couplePhotos: (formData.couplePhotos || []).filter((_, i) => i !== index),
     });
   };
 

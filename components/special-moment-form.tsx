@@ -16,6 +16,7 @@ interface SpecialMomentFormProps {
 
 export function SpecialMomentForm({ onAdd, disabled }: SpecialMomentFormProps) {
   const [photo, setPhoto] = useState<string>("");
+  const [photoFile, setPhotoFile] = useState<File | null>(null);
   const [title, setTitle] = useState("");
   const [date, setDate] = useState("");
   const [description, setDescription] = useState("");
@@ -24,6 +25,7 @@ export function SpecialMomentForm({ onAdd, disabled }: SpecialMomentFormProps) {
     const file = e.target.files?.[0];
     if (file) {
       setPhoto(URL.createObjectURL(file));
+      setPhotoFile(file);
     }
   };
 
@@ -37,12 +39,14 @@ export function SpecialMomentForm({ onAdd, disabled }: SpecialMomentFormProps) {
       date,
       description,
       photo,
+      photoFile: photoFile || undefined,
     });
 
     setTitle("");
     setDate("");
     setDescription("");
     setPhoto("");
+    setPhotoFile(null);
   };
 
   return (
@@ -59,7 +63,10 @@ export function SpecialMomentForm({ onAdd, disabled }: SpecialMomentFormProps) {
             />
             <button
               type="button"
-              onClick={() => setPhoto("")}
+              onClick={() => {
+                setPhoto("");
+                setPhotoFile(null);
+              }}
               className="absolute top-2 right-2 bg-red-500 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
             >
               <X size={14} />

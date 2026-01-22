@@ -55,61 +55,101 @@ export function PaymentModal({ open, onOpenChange }: PaymentModalProps) {
     }
   };
 
+  const uploadImage = async (file: File) => {
+    const formData = new FormData();
+    formData.append("file", file);
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_RECORDAR_API_URL}/story/upload/image`,
+        {
+          method: "POST",
+          body: formData,
+        },
+      );
+
+      if (!response.ok) {
+        throw new Error("Falha no upload da imagem");
+      }
+
+      const data = await response.json();
+      return data.url;
+    } catch (error) {
+      console.error("Erro no upload:", error);
+      throw error;
+    }
+  };
+
   const handleSetStoryRequest = async () => {
     setLoading(true);
 
-    const allCouplePhotos: File[] = [];
-    (formData.couplePhotos || []).forEach((item) => {
-      if (item instanceof File) {
-        allCouplePhotos.push(item);
-      } else if (item instanceof FileList) {
-        for (let i = 0; i < item.length; i++) {
-          allCouplePhotos.push(item[i]);
-        }
-      }
-    });
-
-    const compressedCouplePhotos = await Promise.all(
-      allCouplePhotos.map(compressImage),
-    );
-
-    const compressedSpecialMoments = await Promise.all(
-      (formData.specialMoments || []).map(async (moment) => {
-        if (moment.photoFile instanceof File) {
-          const compressedPhoto = await compressImage(moment.photoFile);
-          return { ...moment, photoFile: compressedPhoto };
-        }
-        return moment;
-      }),
-    );
-
-    const updatedFormData = {
-      ...formData,
-      couplePhotos: compressedCouplePhotos,
-      specialMoments: compressedSpecialMoments,
-    };
-
-    const formattedData = createFormData(updatedFormData, email, phone);
-
     try {
-      const pixDataResponse = await fetch("/api/story", {
-        method: "POST",
-        body: formattedData,
+      // 1. Process Couple Photos
+      const couplePhotoUrls: string[] = [];
+      const allCouplePhotos: File[] = [];
+
+      (formData.couplePhotos || []).forEach((item) => {
+        if (item instanceof File) {
+          allCouplePhotos.push(item);
+        } else if (item instanceof FileList) {
+          for (let i = 0; i < item.length; i++) {
+            allCouplePhotos.push(item[i]);
+          }
+        }
       });
 
-      if (!pixDataResponse.ok) {
-        const errorText = await pixDataResponse.text();
+      // Sequential Upload for Couple Photos
+      for (const photo of allCouplePhotos) {
+        const compressed = await compressImage(photo);
+        const url = await uploadImage(compressed);
+        couplePhotoUrls.push(url);
+      }
+
+      // 2. Process Special Moments
+      const updatedMoments = [];
+      for (const moment of formData.specialMoments || []) {
+        let photoUrl = moment.photo; // Keep existing URL if string
+
+        if (moment.photoFile instanceof File) {
+          const compressedPhoto = await compressImage(moment.photoFile);
+          photoUrl = await uploadImage(compressedPhoto);
+        }
+
+        const { photoFile, ...rest } = moment;
+        updatedMoments.push({ ...rest, photo: photoUrl, photoFile: undefined });
+      }
+
+      // 3. Prepare Final Payload (JSON)
+      const payload = {
+        ...formData,
+        couplePhotos: [],
+        storyImages: couplePhotoUrls,
+        specialMoments: updatedMoments,
+        email,
+        phone,
+      };
+
+      console.log(
+        "SENDING PAYLOAD TO /api/story:",
+        JSON.stringify(payload, null, 2),
+      );
+      console.log("Couple Photo URLs:", couplePhotoUrls);
+
+      const response = await fetch("/api/story", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
         throw new Error(
-          `Erro ${pixDataResponse.status}: ${pixDataResponse.statusText} - ${errorText}`,
+          `Erro ${response.status}: ${response.statusText} - ${errorText}`,
         );
       }
 
-      let pixData;
-      try {
-        pixData = await pixDataResponse.json();
-      } catch (jsonError) {
-        throw new Error("Erro ao converter resposta da API para JSON.");
-      }
+      const pixData = await response.json();
 
       if (pixData.payment_id) {
         setSuccess(true);
@@ -121,8 +161,6 @@ export function PaymentModal({ open, onOpenChange }: PaymentModalProps) {
       }
     } catch (error) {
       console.error("Erro na requisição:", error);
-
-      // Exibe erro de forma mais legível
       alert(error instanceof Error ? error.message : String(error));
     } finally {
       setLoading(false);
