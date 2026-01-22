@@ -22,7 +22,7 @@ export function getDemoData(): WeddingData {
         date: "2020-02-14",
         description:
           "Nosso primeiro encontro foi em um café aconchegante no centro da cidade.",
-        photo:
+        photoFile:
           "https://images.unsplash.com/photo-1529022805552-1c88a713c1c5?w=800",
       },
       {
@@ -30,7 +30,7 @@ export function getDemoData(): WeddingData {
         title: "Pedido de Namoro",
         date: "2020-08-14",
         description: "Em um passeio maravilhoso, oficializamos nosso amor.",
-        photo:
+        photoFile:
           "https://images.unsplash.com/photo-1600299637171-d174627135ee?w=800",
       },
       {
@@ -38,7 +38,7 @@ export function getDemoData(): WeddingData {
         title: "Nosso casamento",
         date: "2024-04-14",
         description: "Oficializando nosso casamento, que será para sempre",
-        photo:
+        photoFile:
           "https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=800",
       },
       {
@@ -47,7 +47,7 @@ export function getDemoData(): WeddingData {
         date: "2024-08-01",
         description:
           "Viajando com nossa familia, nos reunimos em um lugar lindo para celebrar nosso amor.",
-        photo:
+        photoFile:
           "https://images.unsplash.com/photo-1719937206094-8de79c912f40?w=800",
       },
     ],

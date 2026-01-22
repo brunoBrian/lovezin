@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+import { ImageLightbox } from "../image-lightbox";
 import { WeddingData } from "@/lib/types";
 import { PhotoSection } from "./photo-section";
 import { RelationshipTimer } from "@/components/relationship-timer";
@@ -12,13 +14,18 @@ interface MobilePreviewProps {
 }
 
 export function MobilePreview({ data }: MobilePreviewProps) {
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
   return (
     <div className="w-full flex items-center justify-center">
       <div className="w-[320px] h-[640px] bg-white rounded-[3rem] shadow-xl overflow-hidden border-8 border-gray-800 relative">
-        <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-gray-800 rounded-b-2xl" />
+        <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-gray-800 rounded-b-2xl z-20" />
 
-        <div className="h-full overflow-y-auto">
-          <PhotoSection mainPhoto={data.photos[0]} />
+        <div className="h-full overflow-y-auto custom-scrollbar">
+          <PhotoSection
+            mainPhoto={data.photos[0]}
+            onImageClick={setSelectedImage}
+          />
 
           <div className="p-6 space-y-8">
             {data.coupleName && (
@@ -61,11 +68,20 @@ export function MobilePreview({ data }: MobilePreviewProps) {
             )}
 
             {data.specialMoments.length > 0 && (
-              <Timeline moments={data.specialMoments} />
+              <Timeline
+                moments={data.specialMoments}
+                onImageClick={setSelectedImage}
+              />
             )}
           </div>
         </div>
       </div>
+
+      <ImageLightbox
+        src={selectedImage}
+        isOpen={!!selectedImage}
+        onClose={() => setSelectedImage(null)}
+      />
     </div>
   );
 }

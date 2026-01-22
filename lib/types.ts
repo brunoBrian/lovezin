@@ -5,7 +5,7 @@ export interface SpecialMoment {
   title: string;
   date: string;
   description: string;
-  photo: string;
+  photo?: string;
   photoFile?: string;
 }
 

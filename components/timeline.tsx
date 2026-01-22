@@ -7,9 +7,10 @@ import { Calendar } from "lucide-react";
 
 interface TimelineProps {
   moments: SpecialMoment[];
+  onImageClick?: (src: string) => void;
 }
 
-export function Timeline({ moments }: TimelineProps) {
+export function Timeline({ moments, onImageClick }: TimelineProps) {
   if (moments.length === 0) return null;
 
   const sortedMoments = [...moments].sort(
@@ -40,7 +41,14 @@ export function Timeline({ moments }: TimelineProps) {
                     {formatDate(moment.date)}
                   </time>
                 </div>
-                <div className="relative h-48 w-full rounded-lg overflow-hidden">
+                <div
+                  className="relative h-48 w-full rounded-lg overflow-hidden cursor-pointer hover:opacity-95 transition-opacity"
+                  onClick={() =>
+                    onImageClick &&
+                    moment.photoFile &&
+                    onImageClick(moment.photoFile)
+                  }
+                >
                   <Image
                     src={moment?.photoFile || ""}
                     alt={moment.title}

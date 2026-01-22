@@ -6,9 +6,14 @@ import { useEffect, useState } from "react";
 interface PhotoSectionProps {
   isPreview?: boolean;
   photos: string[];
+  onImageClick?: (src: string) => void;
 }
 
-export function SliderSection({ photos, isPreview }: PhotoSectionProps) {
+export function SliderSection({
+  photos,
+  isPreview,
+  onImageClick,
+}: PhotoSectionProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -33,10 +38,11 @@ export function SliderSection({ photos, isPreview }: PhotoSectionProps) {
             src={photos[currentIndex]}
             alt={`Foto ${currentIndex + 1}`}
             fill
-            className={`object-contain rounded-lg transition-opacity duration-500 ${
+            className={`object-contain rounded-lg transition-opacity duration-500 cursor-pointer ${
               !isPreview ? "md:object-contain" : ""
             }`}
             priority
+            onClick={() => onImageClick && onImageClick(photos[currentIndex])}
           />
 
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">

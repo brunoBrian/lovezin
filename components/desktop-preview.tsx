@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+import { ImageLightbox } from "./image-lightbox";
 import { WeddingData } from "@/lib/types";
 import { PhotoSection } from "@/components/mobile-preview/photo-section";
 import { RelationshipTimer } from "@/components/relationship-timer";
@@ -49,10 +51,15 @@ export function DesktopPreview({
   data,
   isPreview = false,
 }: DesktopPreviewProps) {
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
   return (
     <div className="bg-white min-h-full md:rounded-xl shadow-xl overflow-hidden">
       <div className={`relative ${!isPreview ? "md:hidden" : ""}`}>
-        <PhotoSection mainPhoto={data.photos[0]} />
+        <PhotoSection
+          mainPhoto={data.photos[0]}
+          onImageClick={setSelectedImage}
+        />
       </div>
 
       <div className="p-8 space-y-8 max-w-4xl mx-auto">
@@ -67,7 +74,11 @@ export function DesktopPreview({
 
       {data.photos.length > 0 && (
         <div className={`relative ${isPreview ? "aspect-video" : ""}`}>
-          <SliderSection photos={data.photos} isPreview={isPreview} />
+          <SliderSection
+            photos={data.photos}
+            isPreview={isPreview}
+            onImageClick={setSelectedImage}
+          />
         </div>
       )}
 
@@ -111,7 +122,10 @@ export function DesktopPreview({
 
           <div className="space-y-8">
             {data.specialMoments.length > 0 && (
-              <Timeline moments={data.specialMoments} />
+              <Timeline
+                moments={data.specialMoments}
+                onImageClick={setSelectedImage}
+              />
             )}
           </div>
         </div>
@@ -124,6 +138,12 @@ export function DesktopPreview({
           {data.animation && getAnimation(data.animation)}
         </div>
       </div>
+
+      <ImageLightbox
+        src={selectedImage}
+        isOpen={!!selectedImage}
+        onClose={() => setSelectedImage(null)}
+      />
     </div>
   );
 }
