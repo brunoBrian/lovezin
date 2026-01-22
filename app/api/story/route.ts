@@ -13,13 +13,13 @@ async function uploadImages(images: File[]): Promise<string[]> {
         {
           method: "POST",
           body: formData,
-        }
+        },
       );
 
       if (!response.ok) {
         const errorText = await response.text();
         throw new Error(
-          `Erro ${response.status}: ${response.statusText} - ${errorText}`
+          `Erro ${response.status}: ${response.statusText} - ${errorText}`,
         );
       }
 
@@ -32,7 +32,7 @@ async function uploadImages(images: File[]): Promise<string[]> {
     } catch (error) {
       console.error("Erro ao fazer upload da imagem:", error);
       throw new Error(
-        `Erro ao enviar imagem ${image.name}: ${(error as Error)?.message}`
+        `Erro ao enviar imagem ${image.name}: ${(error as Error)?.message}`,
       );
     }
   });
@@ -46,7 +46,7 @@ async function uploadImages(images: File[]): Promise<string[]> {
 }
 
 export async function POST(
-  request: NextRequest
+  request: NextRequest,
 ): Promise<NextResponse<StoryResponse | { message: string }>> {
   try {
     const formData = await request.formData();
@@ -54,7 +54,7 @@ export async function POST(
     // Converte FormData para objeto simples (sem imagens)
     const body: Record<string, any> = {};
     formData.forEach((value, key) => {
-      if (key !== "storyImages" && key !== "specialMomentsPhotos") {
+      if (key !== "storyImages" && !key.startsWith("specialMoments[")) {
         body[key] = value;
       }
     });
@@ -64,9 +64,6 @@ export async function POST(
     const specialMoments = formData
       .getAll("specialMoments")
       .map((moment) => JSON.parse(moment as string));
-    const specialMomentsPhotos = formData.getAll(
-      "specialMomentsPhotos"
-    ) as File[];
 
     // Monta um novo FormData para enviar ao /story
     const storyFormData = new FormData();
@@ -84,11 +81,11 @@ export async function POST(
     // Special moments + fotos
     specialMoments.forEach((moment, index) => {
       storyFormData.append("specialMoments", JSON.stringify(moment));
-      if (specialMomentsPhotos[index]) {
-        storyFormData.append(
-          "specialMomentsPhotos",
-          specialMomentsPhotos[index]
-        );
+
+      // Check for the specific photo file for this moment
+      const photoFile = formData.get(`specialMoments[${index}][photoFile]`);
+      if (photoFile instanceof File) {
+        storyFormData.append(`specialMoments[${index}][photoFile]`, photoFile);
       }
     });
 
@@ -98,7 +95,7 @@ export async function POST(
       {
         method: "POST",
         body: storyFormData, // multipart
-      }
+      },
     );
 
     if (!response.ok) {
@@ -124,7 +121,7 @@ export async function POST(
           "Content-Type": "application/json",
         },
         body: JSON.stringify(paymentData),
-      }
+      },
     );
 
     if (!paymentResponse.ok) {
@@ -137,7 +134,7 @@ export async function POST(
     console.error("Erro:", error);
     return NextResponse.json(
       { message: error.message || "Erro interno do servidor." },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

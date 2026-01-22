@@ -3,7 +3,7 @@ import { WeddingData } from "../types";
 export const createFormData = (
   data: WeddingData,
   email: string,
-  phone: string
+  phone: string,
 ) => {
   const formData = new FormData();
 
@@ -31,11 +31,15 @@ export const createFormData = (
           title: moment.title,
           date: moment.date,
           description: moment.description,
-        })
+        }),
       );
 
       if (moment.photoFile) {
-        formData.append(`specialMomentsPhotos`, moment.photoFile);
+        // Use indexed notation to bind the file to the specific moment
+        formData.append(
+          `specialMoments[${index}][photoFile]`,
+          moment.photoFile,
+        );
       }
     });
   }

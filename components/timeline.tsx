@@ -13,7 +13,7 @@ export function Timeline({ moments }: TimelineProps) {
   if (moments.length === 0) return null;
 
   const sortedMoments = [...moments].sort(
-    (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+    (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
   );
 
   return (
@@ -42,7 +42,7 @@ export function Timeline({ moments }: TimelineProps) {
                 </div>
                 <div className="relative h-48 w-full rounded-lg overflow-hidden">
                   <Image
-                    src={moment.photo}
+                    src={moment?.photoFile || ""}
                     alt={moment.title}
                     fill
                     className="object-cover"

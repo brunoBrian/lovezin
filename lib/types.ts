@@ -6,7 +6,7 @@ export interface SpecialMoment {
   date: string;
   description: string;
   photo: string;
-  photoFile?: File;
+  photoFile?: string;
 }
 
 export interface WeddingData {
