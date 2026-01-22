@@ -70,17 +70,17 @@ export function PaymentModal({ open, onOpenChange }: PaymentModalProps) {
     });
 
     const compressedCouplePhotos = await Promise.all(
-      allCouplePhotos.map(compressImage)
+      allCouplePhotos.map(compressImage),
     );
 
     const compressedSpecialMoments = await Promise.all(
       (formData.specialMoments || []).map(async (moment) => {
-        if (moment.photoFile) {
+        if (moment.photoFile instanceof File) {
           const compressedPhoto = await compressImage(moment.photoFile);
           return { ...moment, photoFile: compressedPhoto };
         }
         return moment;
-      })
+      }),
     );
 
     const updatedFormData = {
@@ -100,7 +100,7 @@ export function PaymentModal({ open, onOpenChange }: PaymentModalProps) {
       if (!pixDataResponse.ok) {
         const errorText = await pixDataResponse.text();
         throw new Error(
-          `Erro ${pixDataResponse.status}: ${pixDataResponse.statusText} - ${errorText}`
+          `Erro ${pixDataResponse.status}: ${pixDataResponse.statusText} - ${errorText}`,
         );
       }
 

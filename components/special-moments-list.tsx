@@ -12,7 +12,10 @@ interface SpecialMomentsListProps {
   onDelete: (id: string) => void;
 }
 
-export function SpecialMomentsList({ moments, onDelete }: SpecialMomentsListProps) {
+export function SpecialMomentsList({
+  moments,
+  onDelete,
+}: SpecialMomentsListProps) {
   if (moments.length === 0) {
     return (
       <div className="text-center py-8 text-gray-500">
@@ -31,7 +34,7 @@ export function SpecialMomentsList({ moments, onDelete }: SpecialMomentsListProp
           >
             <div className="relative w-24 h-24 flex-shrink-0">
               <Image
-                src={moment.photo}
+                src={moment.photo || ""}
                 alt={moment.title}
                 fill
                 className="object-cover rounded-lg"
@@ -52,7 +55,9 @@ export function SpecialMomentsList({ moments, onDelete }: SpecialMomentsListProp
               <time className="text-sm text-gray-500">
                 {formatDate(moment.date)}
               </time>
-              <p className="text-sm text-gray-600 line-clamp-2">{moment.description}</p>
+              <p className="text-sm text-gray-600 line-clamp-2">
+                {moment.description}
+              </p>
             </div>
           </div>
         ))}

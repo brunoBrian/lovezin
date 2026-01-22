@@ -31,7 +31,7 @@ export function MomentsList({ moments, onDelete }: MomentsListProps) {
           >
             <div className="relative w-24 h-24 flex-shrink-0">
               <Image
-                src={moment.photo}
+                src={moment.photo as string}
                 alt={moment.title}
                 fill
                 className="object-cover rounded-lg"

@@ -45,12 +45,16 @@ export function Timeline({ moments, onImageClick }: TimelineProps) {
                   className="relative h-48 w-full rounded-lg overflow-hidden cursor-pointer hover:opacity-95 transition-opacity"
                   onClick={() =>
                     onImageClick &&
-                    moment.photoFile &&
+                    typeof moment.photoFile === "string" &&
                     onImageClick(moment.photoFile)
                   }
                 >
                   <Image
-                    src={moment?.photoFile || ""}
+                    src={
+                      typeof moment?.photoFile === "string"
+                        ? moment.photoFile
+                        : ""
+                    }
                     alt={moment.title}
                     fill
                     className="object-cover"
