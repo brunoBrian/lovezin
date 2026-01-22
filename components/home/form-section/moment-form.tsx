@@ -92,6 +92,7 @@ export function MomentForm({ onAdd, disabled }: MomentFormProps) {
           placeholder="Primeiro Encontro"
           required
           className="bg-secondary/50 border-primary/20"
+          maxLength={50}
         />
       </div>
 
@@ -106,6 +107,7 @@ export function MomentForm({ onAdd, disabled }: MomentFormProps) {
           onChange={(e) => setDate(e.target.value)}
           required
           className="bg-secondary/50 border-primary/20"
+          max={new Date().toISOString().split("T")[0]}
         />
       </div>
 
@@ -120,6 +122,7 @@ export function MomentForm({ onAdd, disabled }: MomentFormProps) {
           placeholder="Conte sobre este momento especial..."
           required
           className="bg-secondary/50 border-primary/20"
+          maxLength={1000}
         />
       </div>
 
